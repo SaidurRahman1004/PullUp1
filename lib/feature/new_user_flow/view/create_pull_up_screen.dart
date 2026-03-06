@@ -1,0 +1,145 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import '../../../core/const/app_assets.dart';
+import '../../../core/const/app_strings.dart';
+import '../../../core/global_widgets/custom_button.dart';
+import '../../../core/global_widgets/custom_text_field.dart';
+import '../controller/new_user_controller.dart';
+import 'notification_permission_screen.dart';
+
+class CreatePullUpScreen extends StatefulWidget {
+  const CreatePullUpScreen({super.key});
+
+  @override
+  State<CreatePullUpScreen> createState() => _CreatePullUpScreenState();
+}
+
+class _CreatePullUpScreenState extends State<CreatePullUpScreen> {
+  final NewUserController controller = Get.find<NewUserController>();
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController timeController = TextEditingController();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2024),
+      lastDate: DateTime(2030),
+    );
+    if (picked != null) {
+      setState(() =>
+      dateController.text = DateFormat('MM/dd/yy').format(picked));
+    }
+  }
+
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+        context: context, initialTime: TimeOfDay.now());
+    if (picked != null) {
+      setState(() => timeController.text = picked.format(context));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Logic to get icon based on selected category
+    String circleIcon = AppAssets.circleGym;
+    String circleName = controller.circleNameController.text.isEmpty
+        ? "Gym Crew"
+        : controller.circleNameController.text;
+
+    final selectedCat = controller.categories.firstWhereOrNull((
+        element) => element['name'] == controller.selectedCategory.value);
+    if (selectedCat != null) circleIcon = selectedCat['icon']!;
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FB),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent, elevation: 0,
+        leading: const BackButton(color: Colors.black),
+        title: const Text(AppStrings.createPullUpTitle, style: TextStyle(
+            color: Colors.black, fontWeight: FontWeight.w800, fontSize: 18)),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text("Circle",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              decoration: BoxDecoration(color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: const Color(0xFFE0E0E0))),
+              child: Row(
+                children: [
+                  Image.asset(circleIcon, width: 24),
+                  const SizedBox(width: 12),
+                  Text(circleName,
+                      style: const TextStyle(fontWeight: FontWeight.w600)),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            const CustomTextField(labelText: AppStrings.titleLabel,
+                hintText: AppStrings.titleHint),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(child: GestureDetector(
+                  onTap: () => _selectDate(context),
+                  child: AbsorbPointer(child: CustomTextField(
+                      controller: dateController,
+                      labelText: AppStrings.dateLabel,
+                      hintText: "Select Date",
+                      prefixIcon: const Icon(
+                          Icons.calendar_today_outlined, size: 20))),
+                )),
+                const SizedBox(width: 16),
+                Expanded(child: GestureDetector(
+                  onTap: () => _selectTime(context),
+                  child: AbsorbPointer(child: CustomTextField(
+                      controller: timeController,
+                      labelText: AppStrings.timeLabel,
+                      hintText: "Select Time",
+                      prefixIcon: const Icon(Icons.access_time, size: 20))),
+                )),
+              ],
+            ),
+            const SizedBox(height: 20),
+            const CustomTextField(labelText: AppStrings.locationLabel,
+                hintText: "Add Location",
+                prefixIcon: Icon(
+                    Icons.location_on_outlined, size: 20, color: Colors.grey)),
+            const SizedBox(height: 20),
+            const Text(AppStrings.detailsLabel,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            const SizedBox(height: 8),
+            TextField(
+              maxLines: 4,
+              decoration: InputDecoration(
+                hintText: "Add any additional details...",
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: const EdgeInsets.all(16),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFFE0E0E0))),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFFE0E0E0))),
+              ),
+            ),
+            const SizedBox(height: 40),
+            CustomButton(text: AppStrings.postPullUpBtn,
+                onPressed: () =>
+                    Get.to(() => const NotificationPermissionScreen())),
+          ],
+        ),
+      ),
+    );
+  }
+}

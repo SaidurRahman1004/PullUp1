@@ -1,13 +1,22 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../../core/const/app_strings.dart';
 import '../../../core/global_widgets/custom_button.dart';
-import '../../../core/global_widgets/custom_text_field.dart';
 import '../../../core/style/app_colors.dart';
 import 'otp_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  bool isPhoneValid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -16,43 +25,96 @@ class LoginScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 80),
-              Text(
-                AppStrings.welcomeTitle,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 60),
+                Text(
+                  AppStrings.welcomeTitle,
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                AppStrings.welcomeSubtitle,
-                style: TextStyle(color: Colors.grey),
-              ),
-              const SizedBox(height: 40),
-              const CustomTextField(
-                labelText: "Phone Number",
-                hintText: AppStrings.phoneNumberHint,
-                prefixIcon: Icon(Icons.phone_outlined),
-                keyboardType: TextInputType.phone,
-              ),
-              const SizedBox(height: 24),
-              CustomButton(
-                text: AppStrings.sendOTP,
-                onPressed: () {
-                  Get.to(() => const OTPScreen());
-                },
-              ),
-              const SizedBox(height: 24),
-              const Text(
-                AppStrings.termsText,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12, color: Colors.black),
-              ),
-            ],
+                const SizedBox(height: 8),
+                const Text(
+                  AppStrings.welcomeSubtitle,
+                  style: TextStyle(color: Colors.grey),
+                ),
+                const SizedBox(height: 40),
+
+                //Phone Phild
+                IntlPhoneField(
+                  decoration: InputDecoration(
+                    labelText: 'Phone Number',
+                    hintText: '000-000-0000',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                    ),
+                  ),
+                  initialCountryCode: 'BD',
+                  onChanged: (phone) {
+                    //valivadion
+                    setState(() {
+                      isPhoneValid = phone.completeNumber.isNotEmpty;
+                    });
+                  },
+                ),
+
+                const SizedBox(height: 24),
+                CustomButton(
+                  text: AppStrings.sendOTP,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Get.to(() => const OTPScreen());
+                    }
+                  },
+                ),
+                const SizedBox(height: 24),
+
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: Colors.black54,
+                      height: 1.5,
+                    ),
+                    children: [
+                      const TextSpan(text: "By continuing, you agree to our "),
+                      TextSpan(
+                        text: "Terms of Service",
+                        style: const TextStyle(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => debugPrint("Terms Clicked"),
+                      ),
+                      const TextSpan(text: " and "),
+                      TextSpan(
+                        text: "Privacy Policy",
+                        style: const TextStyle(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => debugPrint("Privacy Clicked"),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -7,6 +7,9 @@ class AppColors {
   static const Color textSecondary = Color(0xFF7D7D7D);
   static const Color white = Colors.white;
   static const Color error = Color(0xFFFF3B30);
+  //gradient start circle
+  static const List<Color> primaryGradient = [Color(0xFF0066FF), Color(0xFF0047FF)];
+  static const List<Color> iconGradient = [Color(0xFF6366F1), Color(0xFFA855F7)];
 
   static const List<Color> splashGradient = [
     Color(0xFF1E3A8A),
