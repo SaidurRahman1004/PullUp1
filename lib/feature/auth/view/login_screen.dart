@@ -5,6 +5,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../../core/const/app_strings.dart';
 import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/style/app_colors.dart';
+import '../controller/auth_controller.dart';
 import 'otp_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,6 +18,13 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   bool isPhoneValid = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Register AuthController here so it's available throughout the auth flow
+    Get.put(AuthController());
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,8 @@ class SetupProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthController authController = Get.put(AuthController());
+    final AuthController authController = Get.find<AuthController>();
+  
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FB),

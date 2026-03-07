@@ -5,6 +5,7 @@ import 'package:pinput/pinput.dart';
 import '../../../core/const/app_strings.dart';
 import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/style/app_colors.dart';
+import '../controller/auth_controller.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -15,7 +16,15 @@ class OTPScreen extends StatefulWidget {
 
 class _OTPScreenState extends State<OTPScreen> {
   final TextEditingController pinController = TextEditingController();
+  final AuthController authController = Get.find<AuthController>();
   bool isComplete = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    authController.startOtpTimer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +37,7 @@ class _OTPScreenState extends State<OTPScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Spacer(),
+              const Spacer(),
               const Text(
                 AppStrings.enterOTP,
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -47,7 +56,6 @@ class _OTPScreenState extends State<OTPScreen> {
                 onChanged: (pin) {
                   if (pin.length < 6) setState(() => isComplete = false);
                 },
-
                 defaultPinTheme: PinTheme(
                   width: 50,
                   height: 56,
@@ -68,16 +76,31 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
 
               const SizedBox(height: 24),
-              const Text(
-                AppStrings.resendCode,
-                style: TextStyle(color: Colors.grey),
-              ),
-              const SizedBox(height: 24),
 
+              // --- Timer & Resend Row ---
+              Obx(() {
+                final seconds = authController.timerSeconds.value;
+                final canResend = authController.canResend.value;
+
+                return GestureDetector(
+                  onTap: canResend ? authController.resendOTP : null,
+                  child: Text(
+                    canResend ? "Resend code" : "Resend code in ${seconds}s",
+                    style: TextStyle(
+                      color: canResend ? AppColors.primary : Colors.grey,
+                      fontWeight: canResend
+                          ? FontWeight.w600
+                          : FontWeight.normal,
+                      fontSize: 14,
+                    ),
+                  ),
+                );
+              }),
+
+              const SizedBox(height: 24),
 
               CustomButton(
                 text: AppStrings.verify,
-                // validation 6 digit
                 onPressed: isComplete
                     ? () {
                         Get.snackbar("Success", "OTP Verified Successfully!");

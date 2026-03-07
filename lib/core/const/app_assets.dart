@@ -38,4 +38,6 @@ class AppAssets {
   static const String joinGymWhite = '$_circlePath/JoinCircleGymWhite.png';
   static const String postPullupCalendar = '$_circlePath/PostaPullupCalender.png';
   static const String shareIcon = '$_circlePath/ShareIcon.png';
+  static const String thunder = 'assets/icons/Thunder.png';
+
 }

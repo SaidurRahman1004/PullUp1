@@ -83,6 +83,32 @@ class AppStrings {
   static const String joinCircleBtn = "Join Circle";
   static const String emptyHomeTitle = "You're not in any circles yet";
   static const String emptyHomeSubtitle = "Create one or join with a code to see what's going on.";
+  //Home
+  // Home Screen
+  static const String yourCircles = "Your Circles";
+  static const String upcoming = "Upcoming";
+  static const String activePings = "Active Pings";
+  static const String upcomingPullups = "Upcoming PullUps";
+  static const String imFree = "I'm Free";
+  static const String imFreeSubtitle = "Let your circles know you're available.";
+  static const String going = "Going";
+
+  // Chips
+  static const String now = "Now";
+  static const String later = "Later";
+  static const String tonight = "Tonight";
+
+  // Notification Banner
+  static const String turnOnNotify = "Turn on notifications";
+  static const String turnOnNotifySub = "So you don't miss RSVPs.";
+  static const String enable = "Enable";
+
+  // Invite Card
+  static const String inviteYourPeople = "Invite your people";
+  static const String inviteYourPeopleSub = "Best experience: invite 3–8 so plans get responses.";
+  static const String skip = "Skip";
+  static const String imIn = "I'm in";
+
 
 
 

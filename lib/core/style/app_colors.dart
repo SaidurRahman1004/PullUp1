@@ -15,4 +15,10 @@ class AppColors {
     Color(0xFF1E3A8A),
     Color(0xFF001F54),
   ];
+
+  //Home
+  static const Color notifyBannerBg = Color(0xFFFFFBE6);
+  static const Color notifyButton = Color(0xFFD48806);
+  static const Color inviteBannerBg = Color(0xFFF0F7FF);
+  static const Color successGreen = Color(0xFF34C759);
 }
