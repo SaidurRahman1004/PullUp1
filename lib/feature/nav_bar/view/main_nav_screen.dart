@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
 import '../../../core/style/app_colors.dart';
+import '../../community/view/circles_screen.dart';
 import '../../home/view/home_screen.dart';
 import '../controller/nav_controller.dart';
 
@@ -14,7 +15,7 @@ class MainNavScreen extends StatelessWidget {
 
     final List<Widget> pages = [
       const HomeScreen(),
-      const Scaffold(body: Center(child: Text("Circles Page"))),
+      const CirclesScreen(),
       const Scaffold(body: Center(child: Text("Notifications Page"))),
       const Scaffold(body: Center(child: Text("Profile Page"))),
     ];

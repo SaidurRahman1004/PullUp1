@@ -39,5 +39,6 @@ class AppAssets {
   static const String postPullupCalendar = '$_circlePath/PostaPullupCalender.png';
   static const String shareIcon = '$_circlePath/ShareIcon.png';
   static const String thunder = 'assets/icons/Thunder.png';
+  static const String inviteRight = 'assets/icons/iviteIconRight.png';
 
 }
