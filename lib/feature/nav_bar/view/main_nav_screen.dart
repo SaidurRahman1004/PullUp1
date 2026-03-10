@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
+import '../../../core/global_widgets/action_bottom_sheet.dart';
 import '../../../core/style/app_colors.dart';
 import '../../community/view/circles_screen.dart';
 import '../../feature/notifications/view/notifications_screen.dart';
@@ -25,7 +26,10 @@ class MainNavScreen extends StatelessWidget {
       extendBody: true,
       body: Obx(() => pages[controller.currentIndex.value]),
       floatingActionButton: GestureDetector(
-        onTap: () => debugPrint("Add Clicked"),
+        onTap: () => Get.bottomSheet(
+          const ActionBottomSheet(),
+          isScrollControlled: true,
+        ),
         child: Container(
           height: 60,
           width: 60,
@@ -34,80 +38,65 @@ class MainNavScreen extends StatelessWidget {
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: AppColors.primary.withAlpha(60),
-                blurRadius: 12,
+                color: AppColors.primary.withAlpha(80),
+                blurRadius: 16,
                 offset: const Offset(0, 6),
               ),
             ],
           ),
-          child: Center(
-            child: Image.asset(
-              AppAssets.bottomAdd,
-              width: 24,
-              color: Colors.white,
-            ),
+          child: const Center(
+            child: Icon(Icons.add, color: Colors.white, size: 28),
           ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Stack(
-        alignment: Alignment.bottomCenter,
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withAlpha(15),
-                  blurRadius: 20,
-                  offset: const Offset(0, -5),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withAlpha(15),
+              blurRadius: 20,
+              offset: const Offset(0, -5),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+          child: BottomAppBar(
+            padding: const EdgeInsets.symmetric(vertical: 0),
+            height: 80,
+            color: Colors.white,
+            elevation: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildNavItem(controller, 0, AppAssets.bottomProfile, "Home"),
+                _buildNavItem(
+                  controller,
+                  1,
+                  AppAssets.bottomCircles,
+                  "Circles",
+                ),
+                const SizedBox(width: 48),
+                _buildNavItem(
+                  controller,
+                  2,
+                  AppAssets.bottomNotification,
+                  "Notifications",
+                ),
+                _buildNavItem(
+                  controller,
+                  3,
+                  AppAssets.profileBottomActive,
+                  "Profile",
                 ),
               ],
             ),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
-              child: BottomAppBar(
-                padding: const EdgeInsets.symmetric(vertical: 0),
-                height: 85,
-                color: Colors.white,
-                elevation: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _buildNavItem(
-                      controller,
-                      0,
-                      AppAssets.bottomProfile,
-                      "Home",
-                    ),
-                    _buildNavItem(
-                      controller,
-                      1,
-                      AppAssets.bottomCircles,
-                      "Circles",
-                    ),
-                    const SizedBox(width: 45),
-                    _buildNavItem(
-                      controller,
-                      2,
-                      AppAssets.bottomNotification,
-                      "Notification",
-                    ),
-                    _buildNavItem(
-                      controller,
-                      3,
-                      AppAssets.profileBottomActive,
-                      "Profile",
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -119,7 +108,7 @@ class MainNavScreen extends StatelessWidget {
     String label,
   ) {
     return Obx(() {
-      bool isActive = controller.currentIndex.value == index;
+      final bool isActive = controller.currentIndex.value == index;
       return GestureDetector(
         onTap: () => controller.changeIndex(index),
         behavior: HitTestBehavior.opaque,
@@ -127,6 +116,7 @@ class MainNavScreen extends StatelessWidget {
           width: 65,
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
                 icon,

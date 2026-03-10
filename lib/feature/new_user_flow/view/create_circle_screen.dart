@@ -13,7 +13,10 @@ class CreateCircleScreen extends StatelessWidget {
     final NewUserController controller = Get.put(NewUserController());
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Create Circle"), leading: const BackButton()),
+      appBar: AppBar(
+        title: const Text("Create Circle"),
+        leading: const BackButton(),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -26,7 +29,10 @@ class CreateCircleScreen extends StatelessWidget {
                 hintText: "Gym Session",
               ),
               const SizedBox(height: 30),
-              const Text("Select Category", style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text(
+                "Select Category",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 16),
               //Catagory
               Expanded(
@@ -40,28 +46,40 @@ class CreateCircleScreen extends StatelessWidget {
                   itemCount: controller.categories.length,
                   itemBuilder: (context, index) {
                     final cat = controller.categories[index];
-                    return Obx(() => GestureDetector(
-                      onTap: () => controller.selectCategory(cat['name']!),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: controller.selectedCategory.value == cat['name']
-                              ? const Color(0xFFE6F0FF) : Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: controller.selectedCategory.value == cat['name']
-                                ? const Color(0xFF0066FF) : const Color(0xFFE0E0E0),
+                    return Obx(
+                      () => GestureDetector(
+                        onTap: () => controller.selectCategory(cat['name']!),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color:
+                                controller.selectedCategory.value == cat['name']
+                                ? const Color(0xFFE6F0FF)
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color:
+                                  controller.selectedCategory.value ==
+                                      cat['name']
+                                  ? const Color(0xFF0066FF)
+                                  : Colors.black,
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(cat['icon']!, width: 32),
+                              const SizedBox(height: 8),
+                              Text(
+                                cat['name']!,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(cat['icon']!, width: 32),
-                            const SizedBox(height: 8),
-                            Text(cat['name']!, style: const TextStyle(fontWeight: FontWeight.w500)),
-                          ],
-                        ),
                       ),
-                    ));
+                    );
                   },
                 ),
               ),

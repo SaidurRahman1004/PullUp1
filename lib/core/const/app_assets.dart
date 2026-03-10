@@ -42,5 +42,13 @@ class AppAssets {
   static const String inviteRight = 'assets/icons/iviteIconRight.png';
   static const String inviteRightBlue = 'assets/icons/InviteSent.png';
   static const String networkIcon = 'assets/icons/netIcon.png';
+  // Choice & Prompts
+  static const String quickPrompts = "Quick Prompts";
+  static const String writeYourOwn = "Or write your own";
+  static const String chooseTime = "Choose Time";
+  static const String todayBtn = "Today";
+  static const String tomorrowBtn = "Tomorrow";
+  static const String calendarBtn = "Calendar";
+  static const String expiresPrefix = "Expires in";
 
 }

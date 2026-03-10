@@ -130,4 +130,26 @@ class AppStrings {
   static const String searchCircle = "Search Circle";
   static const String inviteTo = "Invite to";
   static const String copyLink = "Copy Link";
+
+  // Action Sheet
+  static const String whatDoYouWantToDo = "What do you want to do?";
+  static const String postPullUp = "Post PullUp";
+  static const String postPullUpDesc = "Create a plan + get RSVPs";
+  static const String pingCircleLabel = "Ping Circle";
+  static const String pingCircleDesc = "Ask who's free right now";
+  static const String createCircleAction = "Create Circle";
+  static const String createCircleDesc = "Start an invite-only group";
+  static const String inviteFriendsLabel = "Invite Friends";
+  static const String inviteFriendsDesc = "Invite someone to a circle";
+  // Send Ping Strings
+  static const String sendPing = "Send Ping";
+  static const String quickPrompts = "Quick Prompts";
+  static const String writeYourOwn = "Or write your own";
+  static const String whatToSayHint = "What do you want to say?";
+  static const String expiresPrefix = "Expires in";
+
+  // Choose Time Strings
+  static const String todayBtn = "Today";
+  static const String tomorrowBtn = "Tomorrow";
+  static const String calendarBtn = "Calendar";
 }
