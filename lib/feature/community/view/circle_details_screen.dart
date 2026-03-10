@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
 import '../../../core/style/app_colors.dart';
+import '../../new_user_flow/view/invite_members_screen.dart';
 import '../controller/circle_controller.dart';
 import 'circle_members_screen.dart';
 
@@ -63,7 +64,7 @@ class CircleDetailsScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
 
-                    // ─── Circle Name ────────────────────────────────────
+                    // Circle Name
                     Text(
                       name,
                       style: const TextStyle(
@@ -102,7 +103,9 @@ class CircleDetailsScreen extends StatelessWidget {
                             child: SizedBox(
                               height: 48,
                               child: OutlinedButton.icon(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.to(()=>InviteMembersScreen());
+                                },
                                 icon: const Icon(
                                   Icons.person_add_alt_1_outlined,
                                   size: 17,
@@ -127,7 +130,7 @@ class CircleDetailsScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 12),
+                          const SizedBox(width: 24),
                           Expanded(
                             child: SizedBox(
                               height: 48,
@@ -158,17 +161,17 @@ class CircleDetailsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 32),
 
-                    // ─── Members Card ───────────────────────────────────
-                    // Figma: bg #E4E6ED, border #D8DAE5, +4 badge
+                    // Members Card
+                    //  bg #E4E6ED, border #D8DAE5
                     GestureDetector(
                       onTap: () => Get.to(() => const CircleMembersScreen()),
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 14,
+                          horizontal: 32,
+                          vertical: 24,
                         ),
                         decoration: BoxDecoration(
                           color: const Color(0xFFE4E6ED),
@@ -211,32 +214,36 @@ class CircleDetailsScreen extends StatelessWidget {
                                     'https://i.pravatar.cc/150?img=5',
                                     40,
                                   ),
+                                  _stackedAvatar(
+                                    'https://i.postimg.cc/DwbHGFqs/Container.png',
+                                    55,
+                                  ),
                                 ],
                               ),
                             ),
-                            const SizedBox(width: 10),
-                            // Arrow button
-                            Container(
-                              width: 28,
-                              height: 28,
-                              decoration: const BoxDecoration(
-                                color: AppColors.primary,
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.arrow_forward,
-                                size: 14,
-                                color: Colors.white,
-                              ),
-                            ),
+
+                            // // Arrow button
+                            // Container(
+                            //   width: 28,
+                            //   height: 28,
+                            //   decoration: const BoxDecoration(
+                            //     color: AppColors.primary,
+                            //     shape: BoxShape.circle,
+                            //   ),
+                            //   child: const Icon(
+                            //     Icons.arrow_forward,
+                            //     size: 14,
+                            //     color: Colors.white,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 32),
 
-                    // ─── Tabs + Content Box ─────────────────────────────
-                    // Figma: outer bg #E4E6ED, selected tab underline
+                    // Tabs + Content Box
+                    //  outer bg #E4E6ED,
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
@@ -265,7 +272,7 @@ class CircleDetailsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 48),
 
                     // Leave Circle button — directly after tabs
                     Padding(
@@ -323,7 +330,7 @@ class CircleDetailsScreen extends StatelessWidget {
           child: Image.network(
             url,
             fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => const CircleAvatar(
+            errorBuilder: (_, _, _) => const CircleAvatar(
               backgroundColor: Color(0xFFD0D0D0),
               child: Icon(Icons.person, size: 14, color: Colors.grey),
             ),
@@ -333,8 +340,8 @@ class CircleDetailsScreen extends StatelessWidget {
     );
   }
 
-  // ─── Tabs ────────────────────────────────────────────────────────────
-  // Figma: underline style, no pill/card selection
+  // Tabs
+  //  underline style, no pill/card selection
   Widget _buildTabs(CircleController controller) {
     return Obx(
       () => Column(
@@ -350,7 +357,7 @@ class CircleDetailsScreen extends StatelessWidget {
             ),
           ),
           // Full-width thin border between tab bar and content
-          Container(height: 1, color: const Color(0xFFD8DAE5)),
+          Container(height: 12, color: const Color(0xFFD8DAE5)),
         ],
       ),
     );
@@ -370,7 +377,7 @@ class CircleDetailsScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
             // Selected tab has slightly different bg color
-            color: isSelected ? const Color(0xFFD8DAE5) : Colors.transparent,
+            color: isSelected ? const Color(0xFFE5E6ED) : Colors.transparent,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(14),
               topRight: Radius.circular(14),
@@ -397,7 +404,7 @@ class CircleDetailsScreen extends StatelessWidget {
               const SizedBox(height: 6),
               // Underline indicator
               Container(
-                height: 2,
+                height: 3,
                 width: 40,
                 decoration: BoxDecoration(
                   color: isSelected ? Colors.black : Colors.transparent,
@@ -411,7 +418,7 @@ class CircleDetailsScreen extends StatelessWidget {
     );
   }
 
-  // ─── Upcoming Tab ─────────────────────────────────────────────────────
+  // Upcoming Tab
   Widget _buildUpcomingTab() {
     return Padding(
       padding: const EdgeInsets.all(12),
@@ -425,7 +432,7 @@ class CircleDetailsScreen extends StatelessWidget {
     );
   }
 
-  // ─── Past Tab ─────────────────────────────────────────────────────────
+  // Past Tab
   Widget _buildPastTab() {
     return Padding(
       padding: const EdgeInsets.all(12),
@@ -444,7 +451,7 @@ class CircleDetailsScreen extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: const Color(0xFFF8F9FB),
+        color: const Color(0xFFD8DAE5),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -499,7 +506,7 @@ class CircleDetailsScreen extends StatelessWidget {
     );
   }
 
-  // ─── Pings Tab ────────────────────────────────────────────────────────
+  //Pings Tab
   Widget _buildPingsTab() {
     return Padding(
       padding: const EdgeInsets.all(12),
@@ -524,25 +531,20 @@ class CircleDetailsScreen extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color(0xFFFFFFFF),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 36,
-            height: 36,
-            padding: const EdgeInsets.all(8),
+            width: 38,
+            height: 38,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Color(0xFFE6F0FF),
             ),
-            child: Image.asset(
-              AppAssets.thunder,
-              color: AppColors.primary,
-              fit: BoxFit.contain,
-            ),
+            child: Center(child: Image.asset(AppAssets.thunder)),
           ),
           const SizedBox(width: 12),
           Expanded(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CircleMembersScreen extends StatelessWidget {
   const CircleMembersScreen({super.key});
@@ -33,7 +32,7 @@ class CircleMembersScreen extends StatelessWidget {
       body: ListView.separated(
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
         itemCount: _members.length,
-        separatorBuilder: (_, __) =>
+        separatorBuilder: (_, _) =>
             const Divider(height: 1, color: Color(0xFFEEEEF0)),
         itemBuilder: (context, index) {
           final member = _members[index];
@@ -65,7 +64,7 @@ class CircleMembersScreen extends StatelessWidget {
               width: 44,
               height: 44,
               fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => const CircleAvatar(
+              errorBuilder: (_, _, _) => const CircleAvatar(
                 radius: 22,
                 backgroundColor: Color(0xFFE5E5EA),
                 child: Icon(Icons.person, color: Colors.grey, size: 22),

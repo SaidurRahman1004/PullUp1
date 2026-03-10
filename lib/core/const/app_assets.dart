@@ -40,5 +40,7 @@ class AppAssets {
   static const String shareIcon = '$_circlePath/ShareIcon.png';
   static const String thunder = 'assets/icons/Thunder.png';
   static const String inviteRight = 'assets/icons/iviteIconRight.png';
+  static const String inviteRightBlue = 'assets/icons/InviteSent.png';
+  static const String networkIcon = 'assets/icons/netIcon.png';
 
 }

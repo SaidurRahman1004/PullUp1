@@ -4,7 +4,6 @@ import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/global_widgets/custom_text_field.dart';
 import '../controller/new_user_controller.dart';
 import 'circle_created_screen.dart' show CircleCreatedScreen;
-import 'create_pull_up_screen.dart';
 
 class CreateCircleScreen extends StatelessWidget {
   const CreateCircleScreen({super.key});

@@ -16,12 +16,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'PullUp App',
-      theme: ThemeData(
-        useMaterial3: true,
-        fontFamily: 'Inter',
-      ),
+      theme: ThemeData(useMaterial3: true, fontFamily: 'Inter'),
       home: const SplashScreen(),
-
     );
   }
 }

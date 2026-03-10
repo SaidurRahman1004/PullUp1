@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
 import '../../../core/style/app_colors.dart';
 import '../../community/view/circles_screen.dart';
+import '../../feature/notifications/view/notifications_screen.dart';
 import '../../home/view/home_screen.dart';
 import '../controller/nav_controller.dart';
 
@@ -16,7 +17,7 @@ class MainNavScreen extends StatelessWidget {
     final List<Widget> pages = [
       const HomeScreen(),
       const CirclesScreen(),
-      const Scaffold(body: Center(child: Text("Notifications Page"))),
+      const NotificationsScreen(),
       const Scaffold(body: Center(child: Text("Profile Page"))),
     ];
 
@@ -41,9 +42,9 @@ class MainNavScreen extends StatelessWidget {
           ),
           child: Center(
             child: Image.asset(
-                AppAssets.bottomAdd,
-                width: 24,
-                color: Colors.white
+              AppAssets.bottomAdd,
+              width: 24,
+              color: Colors.white,
             ),
           ),
         ),
@@ -77,14 +78,30 @@ class MainNavScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     _buildNavItem(
-                        controller, 0, AppAssets.bottomProfile, "Home"),
+                      controller,
+                      0,
+                      AppAssets.bottomProfile,
+                      "Home",
+                    ),
                     _buildNavItem(
-                        controller, 1, AppAssets.bottomCircles, "Circles"),
+                      controller,
+                      1,
+                      AppAssets.bottomCircles,
+                      "Circles",
+                    ),
                     const SizedBox(width: 45),
-                    _buildNavItem(controller, 2, AppAssets.bottomNotification,
-                        "Notification"),
-                    _buildNavItem(controller, 3, AppAssets.profileBottomActive,
-                        "Profile"),
+                    _buildNavItem(
+                      controller,
+                      2,
+                      AppAssets.bottomNotification,
+                      "Notification",
+                    ),
+                    _buildNavItem(
+                      controller,
+                      3,
+                      AppAssets.profileBottomActive,
+                      "Profile",
+                    ),
                   ],
                 ),
               ),
@@ -95,8 +112,12 @@ class MainNavScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(NavController controller, int index, String icon,
-      String label) {
+  Widget _buildNavItem(
+    NavController controller,
+    int index,
+    String icon,
+    String label,
+  ) {
     return Obx(() {
       bool isActive = controller.currentIndex.value == index;
       return GestureDetector(

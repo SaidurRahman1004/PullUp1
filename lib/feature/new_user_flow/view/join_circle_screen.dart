@@ -5,7 +5,6 @@ import '../../../core/const/app_strings.dart';
 import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/global_widgets/custom_text_field.dart';
 import '../../../core/style/app_colors.dart';
-import 'empty_home_screen.dart';
 import 'notification_permission_screen.dart';
 
 class JoinCircleScreen extends StatelessWidget {
@@ -37,7 +36,8 @@ class JoinCircleScreen extends StatelessWidget {
             const SizedBox(height: 16),
             CustomButton(
               text: AppStrings.joinCircleBtn,
-              onPressed: () => Get.offAll(() => const NotificationPermissionScreen()),
+              onPressed: () =>
+                  Get.offAll(() => const NotificationPermissionScreen()),
             ),
             const SizedBox(height: 32),
             _buildCircleTile(

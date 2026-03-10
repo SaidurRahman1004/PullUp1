@@ -48,5 +48,4 @@ class EmptyHomeScreen extends StatelessWidget {
 
 
 
-  Widget _navIcon(Color color, IconData icon) => Icon(icon, color: color, size: 28);
 }

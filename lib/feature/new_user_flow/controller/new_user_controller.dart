@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../view/create_circle_screen.dart';
 
 class NewUserController extends GetxController {
   final circleNameController = TextEditingController();

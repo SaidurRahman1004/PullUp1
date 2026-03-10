@@ -69,7 +69,8 @@ class AppStrings {
   static const String postPullUpBtn = "Post PullUp";
 
   static const String notificationTitle = "Don’t miss replies";
-  static const String notificationSubtitle = "Turn on notifications so you see RSVPs and pings.";
+  static const String notificationSubtitle =
+      "Turn on notifications so you see RSVPs and pings.";
   static const String turnOnNotifyBtn = "Turn On Notifications";
   static const String notNowBtn = "Not now";
 
@@ -82,7 +83,8 @@ class AppStrings {
   static const String inviteCode = "Invite Code";
   static const String joinCircleBtn = "Join Circle";
   static const String emptyHomeTitle = "You're not in any circles yet";
-  static const String emptyHomeSubtitle = "Create one or join with a code to see what's going on.";
+  static const String emptyHomeSubtitle =
+      "Create one or join with a code to see what's going on.";
   //Home
   // Home Screen
   static const String yourCircles = "Your Circles";
@@ -90,7 +92,8 @@ class AppStrings {
   static const String activePings = "Active Pings";
   static const String upcomingPullups = "Upcoming PullUps";
   static const String imFree = "I'm Free";
-  static const String imFreeSubtitle = "Let your circles know you're available.";
+  static const String imFreeSubtitle =
+      "Let your circles know you're available.";
   static const String going = "Going";
 
   // Chips
@@ -105,11 +108,26 @@ class AppStrings {
 
   // Invite Card
   static const String inviteYourPeople = "Invite your people";
-  static const String inviteYourPeopleSub = "Best experience: invite 3–8 so plans get responses.";
+  static const String inviteYourPeopleSub =
+      "Best experience: invite 3–8 so plans get responses.";
   static const String skip = "Skip";
   static const String imIn = "I'm in";
 
+  // Notifications
+  static const String notifications = "Notifications";
+  static const String today = "Today";
+  static const String yesterday = "Yesterday";
 
+  // Action Sheet (FAB)
+  static const String whatToDo = "What do you want to do?";
+  static const String pingCircle = "Ping Circle";
+  static const String pingCircleSub = "Ask who's free right now";
+  static const String inviteFriends = "Invite Friends";
+  static const String inviteFriendsSub = "Invite someone to a circle";
 
-
+  // Invite Flow
+  static const String chooseCircle = "Choose Circle";
+  static const String searchCircle = "Search Circle";
+  static const String inviteTo = "Invite to";
+  static const String copyLink = "Copy Link";
 }
