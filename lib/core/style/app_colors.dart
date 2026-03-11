@@ -7,9 +7,16 @@ class AppColors {
   static const Color textSecondary = Color(0xFF7D7D7D);
   static const Color white = Colors.white;
   static const Color error = Color(0xFFFF3B30);
+
   //gradient start circle
-  static const List<Color> primaryGradient = [Color(0xFF0066FF), Color(0xFF0047FF)];
-  static const List<Color> iconGradient = [Color(0xFF6366F1), Color(0xFFA855F7)];
+  static const List<Color> primaryGradient = [
+    Color(0xFF0066FF),
+    Color(0xFF0047FF),
+  ];
+  static const List<Color> iconGradient = [
+    Color(0xFF6366F1),
+    Color(0xFFA855F7),
+  ];
 
   static const List<Color> splashGradient = [
     Color(0xFF1E3A8A),
@@ -21,4 +28,11 @@ class AppColors {
   static const Color notifyButton = Color(0xFFD48806);
   static const Color inviteBannerBg = Color(0xFFF0F7FF);
   static const Color successGreen = Color(0xFF34C759);
+  static const Color profileHeaderBlue = Color(0xFFE6F0FF);
+  static const List<Color> proGradient = [
+    Color(0xFFFDBB2D),
+    Color(0xFF22C1C3),
+  ]; // Gold tones for Pro
+  static const Color settingTileBg = Colors.white;
+  static const Color dividerColor = Color(0xFFF2F2F7);
 }

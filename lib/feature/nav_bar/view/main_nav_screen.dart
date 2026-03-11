@@ -3,9 +3,10 @@ import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
 import '../../../core/global_widgets/action_bottom_sheet.dart';
 import '../../../core/style/app_colors.dart';
+import '../../account/view/profile_screen.dart';
 import '../../community/view/circles_screen.dart';
-import '../../feature/notifications/view/notifications_screen.dart';
 import '../../home/view/home_screen.dart';
+import '../../notifications/view/notifications_screen.dart';
 import '../controller/nav_controller.dart';
 
 class MainNavScreen extends StatelessWidget {
@@ -19,7 +20,7 @@ class MainNavScreen extends StatelessWidget {
       const HomeScreen(),
       const CirclesScreen(),
       const NotificationsScreen(),
-      const Scaffold(body: Center(child: Text("Profile Page"))),
+      const ProfileScreen(),
     ];
 
     return Scaffold(

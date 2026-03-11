@@ -152,4 +152,18 @@ class AppStrings {
   static const String todayBtn = "Today";
   static const String tomorrowBtn = "Tomorrow";
   static const String calendarBtn = "Calendar";
+  // Profile & Settings
+  static const String profile = "Profile";
+  static const String settings = "Settings";
+  static const String editProfile = "Edit Profile";
+  static const String upgradeToPro = "Upgrade to Pro";
+  static const String unlockUnlimited = "Unlock unlimited PullUps and more";
+  static const String activePullups = "Active PullUps";
+  static const String memberSince = "Member Since";
+  static const String helpCenter = "Help Center";
+  static const String logout = "Logout";
+  static const String deleteAccount = "Delete Account";
+  static const String saveChanges = "Save Changes";
+  // Choice & Prompts
+
 }
