@@ -71,7 +71,10 @@ class SendPingScreen extends StatelessWidget {
                   const SizedBox(width: 12),
                   Text(
                     circleName,
-                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                    ),
                   ),
                 ],
               ),
@@ -202,9 +205,11 @@ class SendPingScreen extends StatelessWidget {
           onTap: () {
             controller.setDateFilter(label);
             if (label == "Later") {
-              Get.bottomSheet(
-                const ChooseTimeSheet(),
+              showModalBottomSheet(
+                context: Get.context!,
                 isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder: (_) => const ChooseTimeSheet(),
               );
             }
           },

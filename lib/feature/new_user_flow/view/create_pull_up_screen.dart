@@ -6,6 +6,7 @@ import '../../../core/const/app_strings.dart';
 import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/global_widgets/custom_text_field.dart';
 import 'notification_permission_screen.dart';
+import '../../../core/global_widgets/custom_date_time_picker_sheet.dart';
 
 class CreatePullUpScreen extends StatefulWidget {
   final String circleName;
@@ -26,24 +27,20 @@ class _CreatePullUpScreenState extends State<CreatePullUpScreen> {
   final TextEditingController timeController = TextEditingController();
 
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2024),
-      lastDate: DateTime(2030),
+  DateTime? _selectedDateTime;
+
+  Future<void> _selectDateOrTime(BuildContext context) async {
+    final DateTime? picked = await CustomDateTimePickerSheet.show(
+      context, 
+      initialDate: _selectedDateTime, 
+      initialTime: _selectedDateTime != null ? TimeOfDay.fromDateTime(_selectedDateTime!) : null,
     );
     if (picked != null) {
-      setState(() =>
-      dateController.text = DateFormat('MM/dd/yy').format(picked));
-    }
-  }
-
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-        context: context, initialTime: TimeOfDay.now());
-    if (picked != null) {
-      setState(() => timeController.text = picked.format(context));
+      setState(() {
+         _selectedDateTime = picked;
+         dateController.text = DateFormat('MM/dd/yy').format(picked);
+         timeController.text = DateFormat('h:mm a').format(picked);
+      });
     }
   }
 
@@ -90,7 +87,7 @@ class _CreatePullUpScreenState extends State<CreatePullUpScreen> {
             Row(
               children: [
                 Expanded(child: GestureDetector(
-                  onTap: () => _selectDate(context),
+                  onTap: () => _selectDateOrTime(context),
                   child: AbsorbPointer(child: CustomTextField(
                       controller: dateController,
                       labelText: AppStrings.dateLabel,
@@ -100,7 +97,7 @@ class _CreatePullUpScreenState extends State<CreatePullUpScreen> {
                 )),
                 const SizedBox(width: 16),
                 Expanded(child: GestureDetector(
-                  onTap: () => _selectTime(context),
+                  onTap: () => _selectDateOrTime(context),
                   child: AbsorbPointer(child: CustomTextField(
                       controller: timeController,
                       labelText: AppStrings.timeLabel,
@@ -119,7 +116,7 @@ class _CreatePullUpScreenState extends State<CreatePullUpScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
             const SizedBox(height: 8),
             TextField(
-              maxLines: 4,
+              maxLines: 2,
               decoration: InputDecoration(
                 hintText: "Add any additional details...",
                 filled: true,
