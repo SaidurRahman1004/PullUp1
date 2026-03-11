@@ -4,17 +4,11 @@ import '../../../core/const/app_assets.dart';
 import '../../../core/const/app_strings.dart';
 import '../../../core/style/app_colors.dart';
 
-// StatefulWidget is required so MediaQuery.viewInsets rebuilds on keyboard open
-class ChooseCircleSheet extends StatefulWidget {
+class ChooseCircleSheet extends StatelessWidget {
   final Function(String name, String icon) onCircleSelected;
 
   const ChooseCircleSheet({super.key, required this.onCircleSelected});
 
-  @override
-  State<ChooseCircleSheet> createState() => _ChooseCircleSheetState();
-}
-
-class _ChooseCircleSheetState extends State<ChooseCircleSheet> {
   static const List<Map<String, dynamic>> _circles = [
     {
       'name': 'Gym Crew',
@@ -25,119 +19,134 @@ class _ChooseCircleSheetState extends State<ChooseCircleSheet> {
     {
       'name': 'Lets Go',
       'sub': '1 members',
-      'icon': AppAssets.circleHangout,
+      'icon': AppAssets.joinGameLetsGo,
       'isOwner': true,
     },
   ];
 
   @override
   Widget build(BuildContext context) {
-    // Reading viewInsets in StatefulWidget causes rebuild when keyboard opens
-    final double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(32, 0, 32, 28),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Drag handle
+                  Center(
+                    child: Container(
+                      width: 36,
+                      height: 4,
+                      margin: const EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD0D0D0),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
 
-    return AnimatedPadding(
-      duration: const Duration(milliseconds: 180),
-      curve: Curves.easeOut,
-      padding: EdgeInsets.fromLTRB(32, 0, 32, keyboardHeight + 12),
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 28),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Drag handle
-            Center(
-              child: Container(
-                width: 36,
-                height: 4,
-                margin: const EdgeInsets.symmetric(vertical: 12),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFD0D0D0),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                  // Header row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        AppStrings.chooseCircle,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => Get.back(),
+                        child: const Icon(
+                          Icons.close,
+                          size: 22,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+
+                  // Divider after header
+                  const Divider(
+                    height: 1,
+                    thickness: 1,
+                    color: Color(0xFFEEEEEE),
+                  ),
+                  const SizedBox(height: 14),
+
+                  // Search field
+                  TextField(
+                    style: const TextStyle(color: Colors.black, fontSize: 14),
+                    decoration: InputDecoration(
+                      hintText: AppStrings.searchCircle,
+                      hintStyle: const TextStyle(
+                        color: Color(0xFF9E9E9E),
+                        fontSize: 14,
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        size: 20,
+                        color: Color(0xFF9E9E9E),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: AppColors.primary),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  const Text(
+                    "Recent",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+
+                  ..._circles.map(
+                    (c) => _circleTile(
+                      context: context,
+                      name: c['name'],
+                      sub: c['sub'],
+                      icon: c['icon'],
+                      isOwner: c['isOwner'],
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+                ],
               ),
             ),
-
-            // Header row
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  AppStrings.chooseCircle,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
-                ),
-                GestureDetector(
-                  onTap: () => Get.back(),
-                  child: const Icon(Icons.close, size: 22, color: Colors.black),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-
-            // Divider after header (Figma)
-            const Divider(height: 1, thickness: 1, color: Color(0xFFEEEEEE)),
-            const SizedBox(height: 14),
-
-            // Search field
-            TextField(
-              style: const TextStyle(color: Colors.black, fontSize: 14),
-              decoration: InputDecoration(
-                hintText: AppStrings.searchCircle,
-                hintStyle: const TextStyle(
-                  color: Color(0xFF9E9E9E),
-                  fontSize: 14,
-                ),
-                prefixIcon: const Icon(
-                  Icons.search,
-                  size: 20,
-                  color: Color(0xFF9E9E9E),
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: AppColors.primary),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Recent label — black
-            const Text(
-              "Recent",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-              ),
-            ),
-            const SizedBox(height: 10),
-
-            // Circle tiles with #F6F6F6 card background
-            ..._circles.map(
-              (c) => _circleTile(
-                name: c['name'],
-                sub: c['sub'],
-                icon: c['icon'],
-                isOwner: c['isOwner'],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
 
   Widget _circleTile({
+    required BuildContext context,
     required String name,
     required String sub,
     required String icon,
@@ -152,7 +161,7 @@ class _ChooseCircleSheetState extends State<ChooseCircleSheet> {
       child: InkWell(
         onTap: () {
           Get.back();
-          widget.onCircleSelected(name, icon);
+          onCircleSelected(name, icon);
         },
         borderRadius: BorderRadius.circular(12),
         child: Padding(

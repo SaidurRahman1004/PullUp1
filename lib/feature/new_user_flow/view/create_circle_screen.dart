@@ -10,15 +10,16 @@ class CreateCircleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NewUserController controller = Get.put(NewUserController());
+    final controller = Get.put(NewUserController());
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text("Create Circle"),
         leading: const BackButton(),
       ),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,67 +29,104 @@ class CreateCircleScreen extends StatelessWidget {
                 labelText: "Circle Name",
                 hintText: "Gym Session",
               ),
-              const SizedBox(height: 30),
-              const Text(
-                "Select Category",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              //Catagory
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.5,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                  ),
-                  itemCount: controller.categories.length,
-                  itemBuilder: (context, index) {
-                    final cat = controller.categories[index];
-                    return Obx(
-                      () => GestureDetector(
-                        onTap: () => controller.selectCategory(cat['name']!),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color:
-                                controller.selectedCategory.value == cat['name']
-                                ? const Color(0xFFE6F0FF)
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color:
-                                  controller.selectedCategory.value ==
-                                      cat['name']
-                                  ? const Color(0xFF0066FF)
-                                  : Colors.black,
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(cat['icon']!, width: 32),
-                              const SizedBox(height: 8),
-                              Text(
-                                cat['name']!,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
+              const SizedBox(height: 24),
+
+              // Collapsible category header — tapping toggles expansion
+              Obx(
+                () => GestureDetector(
+                  onTap: () => controller.categoryExpanded.toggle(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Select Category (Optional)",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
                         ),
                       ),
-                    );
-                  },
+                      AnimatedRotation(
+                        turns: controller.categoryExpanded.value ? 0.5 : 0.0,
+                        duration: const Duration(milliseconds: 250),
+                        child: const Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          size: 24,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
+
+              // Category grid — smooth expand/collapse via Obx
+              Obx(
+                () => AnimatedCrossFade(
+                  duration: const Duration(milliseconds: 280),
+                  crossFadeState: controller.categoryExpanded.value
+                      ? CrossFadeState.showSecond
+                      : CrossFadeState.showFirst,
+                  firstChild: const SizedBox.shrink(),
+                  secondChild: Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1.5,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12,
+                          ),
+                      itemCount: controller.categories.length,
+                      itemBuilder: (context, index) {
+                        final cat = controller.categories[index];
+                        return Obx(() {
+                          final isSelected =
+                              controller.selectedCategory.value == cat['name'];
+                          return GestureDetector(
+                            onTap: () =>
+                                controller.selectCategory(cat['name']!),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: isSelected
+                                    ? const Color(0xFFE6F0FF)
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: isSelected
+                                      ? const Color(0xFF0066FF)
+                                      : Colors.black,
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(cat['icon']!, width: 32),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    cat['name']!,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 32),
               CustomButton(
                 text: "Create Circle",
-                onPressed: () {
-                  Get.to(() => const CircleCreatedScreen());
-                },
+                onPressed: () => Get.to(() => const CircleCreatedScreen()),
               ),
+              const SizedBox(height: 16),
             ],
           ),
         ),

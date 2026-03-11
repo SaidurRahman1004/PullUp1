@@ -5,20 +5,26 @@ import '../../../core/const/app_assets.dart';
 import '../../../core/const/app_strings.dart';
 import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/global_widgets/custom_text_field.dart';
-import '../controller/new_user_controller.dart';
 import 'notification_permission_screen.dart';
 
 class CreatePullUpScreen extends StatefulWidget {
-  const CreatePullUpScreen({super.key});
+  final String circleName;
+  final String circleIcon;
+
+  const CreatePullUpScreen({
+    super.key,
+    this.circleName = 'Gym Crew',
+    this.circleIcon = AppAssets.circleGym,
+  });
 
   @override
   State<CreatePullUpScreen> createState() => _CreatePullUpScreenState();
 }
 
 class _CreatePullUpScreenState extends State<CreatePullUpScreen> {
-  final NewUserController controller = Get.find<NewUserController>();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController timeController = TextEditingController();
+
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -43,15 +49,9 @@ class _CreatePullUpScreenState extends State<CreatePullUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Logic to get icon based on selected category
-    String circleIcon = AppAssets.circleGym;
-    String circleName = controller.circleNameController.text.isEmpty
-        ? "Gym Crew"
-        : controller.circleNameController.text;
-
-    final selectedCat = controller.categories.firstWhereOrNull((
-        element) => element['name'] == controller.selectedCategory.value);
-    if (selectedCat != null) circleIcon = selectedCat['icon']!;
+    // Use the circle name and icon passed from the navigation flow
+    final String circleName = widget.circleName;
+    final String circleIcon = widget.circleIcon;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FB),

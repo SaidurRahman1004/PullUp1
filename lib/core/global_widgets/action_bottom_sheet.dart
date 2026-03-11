@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../feature/home/view/send_ping_screen.dart';
+import '../../feature/home/view/choose_circle_screen.dart';
+import '../../feature/new_user_flow/view/create_pull_up_screen.dart';
 import '../const/app_strings.dart';
 import '../style/app_colors.dart';
 import '../../feature/home/widgets/choose_circle_sheet.dart';
@@ -88,10 +90,15 @@ class ActionBottomSheet extends StatelessWidget {
                 showDivider: true,
                 onTap: () {
                   Get.back();
-                  Get.bottomSheet(
-                    ChooseCircleSheet(onCircleSelected: (name, icon) {}),
-                    isScrollControlled: true,
-                  );
+                  // Post PullUp → full-screen Choose Circle → Create PullUp
+                  Get.to(() => ChooseCircleScreen(
+                    onCircleSelected: (name, icon) {
+                      Get.to(() => CreatePullUpScreen(
+                        circleName: name,
+                        circleIcon: icon,
+                      ));
+                    },
+                  ));
                 },
               ),
               _buildActionItem(
@@ -139,7 +146,7 @@ class ActionBottomSheet extends StatelessWidget {
                   Get.bottomSheet(
                     ChooseCircleSheet(
                       onCircleSelected: (name, icon) {
-                        Get.dialog(InviteLinkDialog(circleName: name));
+                        InviteLinkSheet.show(name);
                       },
                     ),
                     isScrollControlled: true,

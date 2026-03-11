@@ -7,6 +7,11 @@ class PingController extends GetxController {
   var selectedDateFilter = "Now".obs;
   var selectedTimeTab = 0.obs;
 
+  // Time picker values
+  var selectedHour = 11.obs;
+  var selectedMinute = 3.obs;
+  var selectedAmPm = 'AM'.obs;
+
   final List<String> prompts = [
     "I'm free, anyone down?",
     "Who wants to hang out?",

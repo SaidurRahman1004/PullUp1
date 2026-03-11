@@ -6,6 +6,8 @@ class NewUserController extends GetxController {
   var selectedCategory = ''.obs;
   var invitedCount = 1.obs;
   var inviteCode = "ABC-123".obs;
+  // Tracks whether the category grid is expanded — used in CreateCircleScreen
+  var categoryExpanded = false.obs;
 
   void goToInvite() => Get.toNamed('/invite');
   final List<Map<String, String>> categories = [

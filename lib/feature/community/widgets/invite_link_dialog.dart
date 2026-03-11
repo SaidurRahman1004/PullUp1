@@ -4,20 +4,27 @@ import 'package:get/get.dart';
 import '../../../core/const/app_strings.dart';
 import '../../../core/style/app_colors.dart';
 
-class InviteLinkDialog extends StatelessWidget {
+class InviteLinkSheet extends StatelessWidget {
   final String circleName;
 
-  const InviteLinkDialog({super.key, required this.circleName});
+  const InviteLinkSheet({super.key, required this.circleName});
+
+  // Use Get.bottomSheet to show this correctly at the bottom with margins
+  static void show(String circleName) {
+    Get.bottomSheet(
+      InviteLinkSheet(circleName: circleName),
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      // Position in center of screen (not top/bottom biased)
-      alignment: Alignment.center,
-      child: Material(
-        color: Colors.transparent,
+    return SafeArea(
+      child: Padding(
+        // Left/right/bottom margin creates floating card effect (Figma)
+        padding: const EdgeInsets.fromLTRB(24, 0, 24, 22),
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -27,7 +34,20 @@ class InviteLinkDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Title + close
+              // Drag handle
+              Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFD0D0D0),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+
+              // Title + close button
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -50,7 +70,7 @@ class InviteLinkDialog extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
 
               // Divider between header and buttons (Figma)
               const Divider(height: 1, thickness: 1, color: Color(0xFFEEEEEE)),
@@ -125,3 +145,6 @@ class InviteLinkDialog extends StatelessWidget {
     );
   }
 }
+
+// Keep old name as alias so existing imports don't break
+typedef InviteLinkDialog = InviteLinkSheet;

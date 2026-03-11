@@ -37,40 +37,41 @@ class SendPingScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Circle label
             const Text(
               "Circle",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
             ),
             const SizedBox(height: 8),
 
-            // Circle selector chip
+            // Circle selector field
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFE5E5EA)),
+                border: Border.all(color: Colors.black),
               ),
               child: Row(
                 children: [
+                  // Rounded rectangle icon (not full circle)
                   Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: const BoxDecoration(
+                    width: 36,
+                    height: 36,
+                    padding: const EdgeInsets.all(7),
+                    decoration: BoxDecoration(
                       color: AppColors.primary,
-                      shape: BoxShape.circle,
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Image.asset(
                       circleIcon,
-                      width: 18,
-                      height: 18,
                       color: Colors.white,
+                      fit: BoxFit.contain,
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 12),
                   Text(
                     circleName,
-                    style: const TextStyle(fontWeight: FontWeight.w600),
+                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                   ),
                 ],
               ),
@@ -78,7 +79,6 @@ class SendPingScreen extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            // Quick Prompts
             const Text(
               AppStrings.quickPrompts,
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
@@ -88,7 +88,6 @@ class SendPingScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // Custom message box
             const Text(
               AppStrings.writeYourOwn,
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
@@ -105,7 +104,7 @@ class SendPingScreen extends StatelessWidget {
                 contentPadding: const EdgeInsets.all(14),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFE5E5EA)),
+                  borderSide: const BorderSide(color: Colors.black),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -116,7 +115,6 @@ class SendPingScreen extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            // Date selector
             const Text(
               "Date",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
@@ -168,7 +166,7 @@ class SendPingScreen extends StatelessWidget {
             color: isSelected ? AppColors.primary : Colors.white,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isSelected ? AppColors.primary : const Color(0xFFE5E5EA),
+              color: isSelected ? AppColors.primary : Colors.black,
             ),
           ),
           child: Text(
@@ -216,7 +214,7 @@ class SendPingScreen extends StatelessWidget {
               color: isSelected ? AppColors.primary : Colors.white,
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: isSelected ? AppColors.primary : const Color(0xFFE5E5EA),
+                color: isSelected ? AppColors.primary : Colors.black,
               ),
             ),
             child: Center(
