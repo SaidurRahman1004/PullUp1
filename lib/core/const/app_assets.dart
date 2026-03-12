@@ -10,7 +10,16 @@ class AppAssets {
   static const String bottomCircles = '$_bottomPath/BottomCircles.png';
   static const String bottomNotification = '$_bottomPath/bottomNotification.png';
   static const String bottomProfile = '$_bottomPath/bottomProfile.png';
-  static const String profileBottomActive = '$_bottomPath/ProfileBottom.png';
+  static const String profileBottom = '$_bottomPath/ProfileBottom.png';
+
+  static const String bottomProfileActive = '$_bottomPath/bottomProfileActive.png';
+  static const String bottomCirclesActive = '$_bottomPath/BottomCirclesActive.png';
+  static const String bottomNotificationActive = '$_bottomPath/bottomNotificationActive.png';
+  static const String profileBottomActive = '$_bottomPath/ProfileBottomActive.png';
+
+
+
+
 
   // --- Create Circle & New User Flow Assets ---
   static const String _circlePath = 'assets/icons/CreateCircleAsset';
@@ -43,6 +52,8 @@ class AppAssets {
   static const String inviteRightBlue = 'assets/icons/InviteSent.png';
   static const String networkIcon = 'assets/icons/netIcon.png';
   static const String premiumIcon = 'assets/icons/PremiumIcon.png';
+  static const String bookIcon = 'assets/icons/bookIcon.png';
+  static const String chatIcon = 'assets/icons/chat.png';
 
 
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/global_text_style.dart';
 
-class SettingsTile extends StatelessWidget {
+class SettingsTileWidget extends StatelessWidget {
   final String title;
   final String? subtitle;
   final Widget? trailing;
   final VoidCallback onTap;
 
-  const SettingsTile({
+  const SettingsTileWidget({
     super.key,
     required this.title,
     this.subtitle,
@@ -16,22 +17,25 @@ class SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return InkWell(
       onTap: onTap,
-      contentPadding: EdgeInsets.zero,
-      title: Text(
-        title,
-        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: AppTextStyles.bodyMedium),
+                if (subtitle != null) ...[
+                  const SizedBox(height: 4),
+                  Text(subtitle!, style: AppTextStyles.bodySmall),
+                ],
+              ],
+            ),
+          ),
+          if (trailing != null) trailing!,
+        ],
       ),
-      subtitle: subtitle != null
-          ? Text(
-              subtitle!,
-              style: const TextStyle(fontSize: 12, color: Colors.grey),
-            )
-          : null,
-      trailing:
-          trailing ??
-          const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
     );
   }
 }

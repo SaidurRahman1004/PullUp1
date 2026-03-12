@@ -32,21 +32,21 @@ class MainNavScreen extends StatelessWidget {
           isScrollControlled: true,
         ),
         child: Container(
-          height: 60,
-          width: 60,
+          height: 68,
+          width: 68,
           decoration: BoxDecoration(
             color: AppColors.primary,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: AppColors.primary.withAlpha(80),
-                blurRadius: 16,
-                offset: const Offset(0, 6),
+                color: AppColors.primary.withAlpha(100),
+                blurRadius: 18,
+                offset: const Offset(0, 8),
               ),
             ],
           ),
           child: const Center(
-            child: Icon(Icons.add, color: Colors.white, size: 28),
+            child: Icon(Icons.add, color: Colors.white, size: 32),
           ),
         ),
       ),
@@ -74,24 +74,34 @@ class MainNavScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildNavItem(controller, 0, AppAssets.bottomProfile, "Home"),
+                _buildNavItem(
+                  controller,
+                  0,
+                  AppAssets.bottomProfile, // Inactive
+                  AppAssets.bottomProfileActive, // Active
+                  "Home",
+                ),
                 _buildNavItem(
                   controller,
                   1,
-                  AppAssets.bottomCircles,
+                  AppAssets.bottomCircles, // Inactive
+                  AppAssets.bottomCirclesActive, // Active
                   "Circles",
                 ),
                 const SizedBox(width: 48),
                 _buildNavItem(
                   controller,
                   2,
-                  AppAssets.bottomNotification,
+                  AppAssets.bottomNotification, // Inactive
+                  AppAssets.bottomNotificationActive, // Active
                   "Notifications",
                 ),
                 _buildNavItem(
                   controller,
                   3,
+                  AppAssets.profileBottom, // Inactive (using profile asset)
                   AppAssets.profileBottomActive,
+                  // Active (using your specific active asset)
                   "Profile",
                 ),
               ],
@@ -105,7 +115,8 @@ class MainNavScreen extends StatelessWidget {
   Widget _buildNavItem(
     NavController controller,
     int index,
-    String icon,
+    String inactiveIcon,
+    String activeIcon,
     String label,
   ) {
     return Obx(() {
@@ -120,18 +131,23 @@ class MainNavScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                icon,
-                width: 24,
-                height: 24,
-                color: isActive ? AppColors.primary : const Color(0xFF8E8E93),
+                isActive ? activeIcon : inactiveIcon,
+                width: 26,
+                height: 26,
+                color: isActive ? AppColors.primary : null,
+                colorBlendMode: isActive ? BlendMode.srcIn : null,
               ),
               const SizedBox(height: 4),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-                  color: isActive ? AppColors.primary : const Color(0xFF8E8E93),
+              FittedBox(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
+                    color: isActive
+                        ? AppColors.primary
+                        : const Color(0xFF8E8E93),
+                  ),
                 ),
               ),
             ],

@@ -48,7 +48,7 @@ class ChooseCircleScreen extends StatelessWidget {
       body: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         itemCount: _circles.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
+        separatorBuilder: (_, _) => const SizedBox(height: 12),
         itemBuilder: (context, index) {
           final c = _circles[index];
           return _circleTile(

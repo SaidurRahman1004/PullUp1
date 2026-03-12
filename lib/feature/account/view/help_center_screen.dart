@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../core/const/app_assets.dart';
 import '../../../core/style/app_colors.dart';
+import '../../../core/theme/global_text_style.dart';
+import '../widgets/faq_tile_widget.dart';
+import '../widgets/help_center_support_card.dart';
 
 class HelpCenterScreen extends StatelessWidget {
   const HelpCenterScreen({super.key});
@@ -31,48 +35,50 @@ class HelpCenterScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           children: [
-            _buildSupportCard(),
+            const HelpCenterSupportCard(),
             const SizedBox(height: 24),
-            const Text(
+            Text(
               "Frequently Asked Questions",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: Colors.black87,
-              ),
+              style: AppTextStyles.heading3.copyWith(fontSize: 16),
             ),
             const SizedBox(height: 16),
             _buildFaqGroup(
-              icon: Icons.chrome_reader_mode_outlined,
+              assetPath: AppAssets.bookIcon,
               title: "Getting Started",
               items: [
-                _FaqItem(
+                FaqItem(
                   question: "What is PullUp?",
                   answer:
                       "PullUp is a social coordination app that helps you organize spontaneous activities with your friends through circles. Create PullUps (events), send pings, and coordinate plans effortlessly.",
                   isExpanded: true,
                 ),
-                _FaqItem(question: "How do I create a circle?"),
-                _FaqItem(question: "How do I join a circle?"),
+                FaqItem(
+                  question: "How do I create a circle?",
+                  answer: "To create a circle, tap the + button on the Circles tab and select Create Circle. You can then invite your friends.",
+                ),
+                FaqItem(
+                  question: "How do I join a circle?",
+                  answer: "You can join a circle by entering a 6-digit code or scanning a QR code shared by the circle's owner.",
+                ),
               ],
             ),
             const SizedBox(height: 16),
             _buildFaqGroup(
-              icon: Icons.chat_bubble_outline,
+              assetPath: AppAssets.chatIcon,
               title: "PullUps & Events",
               items: [
-                _FaqItem(question: "What is a PullUp?"),
-                _FaqItem(question: "Can I edit a PullUp after creating it?"),
-                _FaqItem(question: "What are comments on PullUps?"),
+                FaqItem(question: "What is a PullUp?", answer: "A PullUp is an event or gathering created within a circle to coordinate plans with members."),
+                FaqItem(question: "Can I edit a PullUp after creating it?", answer: "Yes, the creator of a PullUp can edit its details at any time from the PullUp details screen."),
+                FaqItem(question: "What are comments on PullUps?", answer: "Comments allow circle members to discuss and finalize plans directly within a specific PullUp event."),
               ],
             ),
             const SizedBox(height: 16),
             _buildFaqGroup(
-              icon: Icons.chat_bubble_outline,
+              assetPath: AppAssets.chatIcon,
               title: "Pings",
               items: [
-                _FaqItem(question: "What are pings?"),
-                _FaqItem(question: "How long do pings last?"),
+                FaqItem(question: "What are pings?", answer: "Pings are quick notifications you can send to circle members to gauge interest for a random hangout."),
+                FaqItem(question: "How long do pings last?", answer: "Pings are active for a short period and expire automatically to encourage spontaneous responses."),
               ],
             ),
             const SizedBox(height: 16),
@@ -80,9 +86,9 @@ class HelpCenterScreen extends StatelessWidget {
               icon: Icons.shield_outlined,
               title: "Privacy & Safety",
               items: [
-                _FaqItem(question: "Who can see my information?"),
-                _FaqItem(question: "Can I leave a circle?"),
-                _FaqItem(question: "How do I block notifications?"),
+                FaqItem(question: "Who can see my information?", answer: "Your information is only visible to members of the circles you have joined."),
+                FaqItem(question: "Can I leave a circle?", answer: "Yes, you can leave any circle from the circle settings menu."),
+                FaqItem(question: "How do I block notifications?", answer: "You can manage or silence notifications for specific circles or the entire app in Settings."),
               ],
             ),
             const SizedBox(height: 16),
@@ -90,8 +96,8 @@ class HelpCenterScreen extends StatelessWidget {
               icon: Icons.workspace_premium_outlined,
               title: "Pro Features",
               items: [
-                _FaqItem(question: "What is PullUp Pro?"),
-                _FaqItem(question: "How much does Pro cost?"),
+                FaqItem(question: "What is PullUp Pro?", answer: "PullUp Pro is a premium subscription that unlocks advanced features, unlimited PullUps, and priority support."),
+                FaqItem(question: "How much does Pro cost?", answer: "PullUp Pro costs \$3.99 per month or \$29.99 per year."),
               ],
             ),
             const SizedBox(height: 40),
@@ -101,79 +107,13 @@ class HelpCenterScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSupportCard() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: const Color(0xFFF4F7FB),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Need More Help?",
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                "Can't find what you're looking for? Our\nsupport team is here to help.",
-                style: TextStyle(
-                  color: Color(0xFF6B7280),
-                  fontSize: 13,
-                  height: 1.4,
-                ),
-              ),
-              const SizedBox(height: 16),
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.email_outlined, size: 20),
-                  label: const Text(
-                    "Email",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: Colors.white,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+
 
   Widget _buildFaqGroup({
-    required IconData icon,
+    IconData? icon,
+    String? assetPath,
     required String title,
-    required List<_FaqItem> items,
+    required List<FaqItem> items,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -181,7 +121,7 @@ class HelpCenterScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: Colors.black.withAlpha(6),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -197,17 +137,19 @@ class HelpCenterScreen extends StatelessWidget {
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
               ),
+              border: Border(bottom: BorderSide(color: Color(0xFFE5E7EB), width: 1.17)),
             ),
             child: Row(
               children: [
-                Icon(icon, color: AppColors.primary, size: 22),
+                if (assetPath != null)
+                  Image.asset(assetPath, width: 22, height: 22, color: AppColors.primary)
+                else if (icon != null)
+                  Icon(icon, color: AppColors.primary, size: 22),
                 const SizedBox(width: 12),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 15,
-                    color: Colors.black87,
+                Expanded(
+                  child: Text(
+                    title,
+                    style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w700),
                   ),
                 ),
               ],
@@ -216,63 +158,12 @@ class HelpCenterScreen extends StatelessWidget {
           ...items.asMap().entries.map((entry) {
             final isLast = entry.key == items.length - 1;
             final isFirst = entry.key == 0;
-            return _buildFaqTile(entry.value, isLast, isFirst);
+            return FaqTileWidget(item: entry.value, isLast: isLast, isFirst: isFirst);
           }),
         ],
       ),
     );
   }
-
-  Widget _buildFaqTile(_FaqItem item, bool isLast, bool isFirst) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (!isFirst) const Divider(height: 1, color: Color(0xFFF3F4F6)),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  item.question,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              Icon(
-                item.isExpanded ? Icons.keyboard_arrow_up : Icons.chevron_right,
-                size: 20,
-                color: const Color(0xFF9CA3AF),
-              ),
-            ],
-          ),
-        ),
-        if (item.isExpanded && item.answer != null)
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-            child: Text(
-              item.answer!,
-              style: const TextStyle(
-                color: Color(0xFF6B7280),
-                fontSize: 13,
-                height: 1.5,
-              ),
-            ),
-          ),
-        if (isLast && !item.isExpanded) const SizedBox(height: 4),
-      ],
-    );
-  }
 }
 
-class _FaqItem {
-  final String question;
-  final String? answer;
-  final bool isExpanded;
 
-  _FaqItem({required this.question, this.answer, this.isExpanded = false});
-}

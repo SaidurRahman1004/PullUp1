@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/style/app_colors.dart';
+import '../../../core/theme/global_text_style.dart';
+import '../widgets/pullup_pro_feature_row.dart';
+import '../widgets/pullup_pro_pricing_card.dart';
 
 class PullUpProScreen extends StatelessWidget {
   const PullUpProScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final RxBool isYearlySelected = true.obs;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -19,12 +24,12 @@ class PullUpProScreen extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Color(0xFFFDF5DE), Color(0xFFFC9852)],
+                colors: [Color(0xFFFDF5DE), Color(0xFFFC9952)],
               ),
             ),
             child: SafeArea(
               child: Column(
-                mainAxisSize: .min,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Align(
                     alignment: Alignment.topRight,
@@ -32,10 +37,10 @@ class PullUpProScreen extends StatelessWidget {
                       onTap: () => Get.back(),
                       child: Container(
                         margin: const EdgeInsets.only(right: 20, top: 10),
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
-                          shape: BoxShape.circle,
+                          color: Colors.white.withAlpha(51),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: const Icon(
                           Icons.close,
@@ -59,19 +64,17 @@ class PullUpProScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  const Text(
+                  Text(
                     "Unlock PullUp Pro",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
-                    ),
+                    style: AppTextStyles.heading2.copyWith(color: Colors.white),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
+                  Text(
                     "Get unlimited access to everything",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: Colors.white,
+                    ),
                   ),
                   const SizedBox(height: 30),
                 ],
@@ -84,28 +87,47 @@ class PullUpProScreen extends StatelessWidget {
               padding: const EdgeInsets.all(24),
               child: Column(
                 children: [
-                  _featureRow(
-                    "Unlimited Active PullUps",
-                    "No limit on events you can create",
+                  const PullupProFeatureRow(
+                    title: "Unlimited Active PullUps",
+                    sub: "No limit on events you can create",
                   ),
-                  _featureRow(
-                    "Join More Circles",
-                    "Be part of unlimited circles",
+                  const PullupProFeatureRow(
+                    title: "Join More Circles",
+                    sub: "Be part of unlimited circles",
                   ),
-                  _featureRow(
-                    "Bigger Circles",
-                    "Add up to 100 members per circle",
+                  const PullupProFeatureRow(
+                    title: "Bigger Circles",
+                    sub: "Add up to 100 members per circle",
                   ),
-                  _featureRow("Priority Support", "Get help when you need it"),
+                  const PullupProFeatureRow(
+                    title: "Priority Support",
+                    sub: "Get help when you need it",
+                  ),
                   const SizedBox(height: 32),
 
                   // Pricing Row
-                  Row(
-                    children: [
-                      _pricingCard("Monthly", "\$3.99", "per month", false),
-                      const SizedBox(width: 16),
-                      _pricingCard("Yearly", "\$29.99", "\$2.50/month", true),
-                    ],
+                  Obx(
+                    () => Row(
+                      children: [
+                        PullupProPricingCard(
+                          label: "Monthly",
+                          price: "\$3.99",
+                          sub: "per month",
+                          isYearly: false,
+                          isSelected: !isYearlySelected.value,
+                          onTap: () => isYearlySelected.value = false,
+                        ),
+                        const SizedBox(width: 16),
+                        PullupProPricingCard(
+                          label: "Yearly",
+                          price: "\$29.99",
+                          sub: "\$2.50/month",
+                          isYearly: true,
+                          isSelected: isYearlySelected.value,
+                          onTap: () => isYearlySelected.value = true,
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 40),
 
@@ -146,103 +168,6 @@ class PullUpProScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _featureRow(String title, String sub) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
-      child: Row(
-        children: [
-          const Icon(Icons.check_circle, color: Color(0xFF34C759), size: 24),
-          const SizedBox(width: 14),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14,
-                ),
-              ),
-              Text(
-                sub,
-                style: const TextStyle(color: Colors.grey, fontSize: 12),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _pricingCard(String label, String price, String sub, bool isYearly) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isYearly ? AppColors.primary : const Color(0xFFE5E5EA),
-            width: 1.5,
-          ),
-        ),
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Column(
-              children: [
-                Text(
-                  label,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  price,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  sub,
-                  style: const TextStyle(color: Colors.grey, fontSize: 11),
-                ),
-              ],
-            ),
-            if (isYearly)
-              Positioned(
-                top: -24,
-                right: -10,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF34C759),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: const Text(
-                    "Save 38%",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 9,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        ),
       ),
     );
   }

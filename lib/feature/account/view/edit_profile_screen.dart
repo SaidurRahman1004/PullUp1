@@ -4,7 +4,8 @@ import '../../../core/const/app_strings.dart';
 import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/global_widgets/custom_text_field.dart';
 import '../../../core/style/app_colors.dart';
-import '../controller/account_controller.dart';
+import '../../../core/theme/global_text_style.dart';
+import '../controllers/account_controller.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
@@ -22,9 +23,9 @@ class EditProfileScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
+        title: Text(
           AppStrings.editProfile,
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 17),
+          style: AppTextStyles.heading3.copyWith(fontSize: 17),
         ),
       ),
       body: SingleChildScrollView(
@@ -40,7 +41,9 @@ class EditProfileScreen extends StatelessWidget {
                     children: [
                       const CircleAvatar(
                         radius: 50,
-                        backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12'),
+                        backgroundImage: NetworkImage(
+                          'https://i.pravatar.cc/150?img=12',
+                        ),
                       ),
                       Positioned(
                         bottom: 0,
@@ -51,15 +54,19 @@ class EditProfileScreen extends StatelessWidget {
                             color: AppColors.primary,
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.camera_alt_outlined, color: Colors.white, size: 18),
+                          child: const Icon(
+                            Icons.camera_alt_outlined,
+                            color: Colors.white,
+                            size: 18,
+                          ),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 12),
-                  const Text(
+                  Text(
                     "Click the camera icon to change your photo",
-                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                    style: AppTextStyles.caption.copyWith(fontSize: 12),
                   ),
                 ],
               ),
@@ -72,9 +79,12 @@ class EditProfileScreen extends StatelessWidget {
               hintText: "Enter your name",
             ),
             const SizedBox(height: 6),
-            const Align(
-              alignment: Alignment.centerRight,
-              child: Text("3/30 characters", style: TextStyle(color: Colors.grey, fontSize: 11)),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "3/30 characters",
+                style: AppTextStyles.caption.copyWith(color: Colors.black, fontSize: 11),
+              ),
             ),
             const SizedBox(height: 24),
             _buildFieldLabel("Phone Number"),
@@ -83,19 +93,22 @@ class EditProfileScreen extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               decoration: BoxDecoration(
-                color: const Color(0xFFF2F2F7),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFE5E5EA)),
+                border: Border.all(color: Colors.black),
               ),
               child: Text(
                 controller.phoneNumber.value,
-                style: const TextStyle(color: Colors.black87, fontSize: 15),
+                style: AppTextStyles.bodyMedium,
               ),
             ),
             const SizedBox(height: 8),
-            const Align(
+            Align(
               alignment: Alignment.centerLeft,
-              child: Text("Phone number cannot be changed", style: TextStyle(color: Colors.grey, fontSize: 11)),
+              child: Text(
+                "Phone number cannot be changed",
+                style: AppTextStyles.caption.copyWith(color: Colors.black, fontSize: 11),
+              ),
             ),
             const SizedBox(height: 60),
             // Save Button
@@ -116,7 +129,7 @@ class EditProfileScreen extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Text(
           label,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: Colors.black87),
+          style: AppTextStyles.bodyRegular.copyWith(fontWeight: FontWeight.w600),
         ),
       ),
     );
