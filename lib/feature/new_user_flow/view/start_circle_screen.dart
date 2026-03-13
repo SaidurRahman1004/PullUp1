@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
 import '../../../core/style/app_colors.dart';
+import '../../../core/theme/global_text_style.dart';
 import '../widgets/action_card.dart';
 import 'create_circle_screen.dart';
 import 'join_circle_screen.dart';
@@ -51,20 +52,19 @@ class StartCircleScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 32),
-              const Text(
+              Text(
                 "Start your first circle",
-                style: TextStyle(
+                style: AppTextStyles.heading1.copyWith(
                   fontSize: 28,
-                  fontWeight: FontWeight.w800,
                   letterSpacing: -0.5,
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
-              const Text(
+              Text(
                 "PullUp works best when your people are in one place.",
                 textAlign: TextAlign.center,
-                style: TextStyle(color: AppColors.textSecondary, fontSize: 16),
+                style: AppTextStyles.bodyLarge.copyWith(color: AppColors.textSecondary),
               ),
               const SizedBox(height: 48),
 
@@ -87,9 +87,9 @@ class StartCircleScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              const Text(
+              Text(
                 "Invite-only. Nothing is public.",
-                style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
+                style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
               ),
 
               const Spacer(),

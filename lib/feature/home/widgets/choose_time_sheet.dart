@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/style/app_colors.dart';
-import '../controller/ping_controller.dart';
+import '../controllers/ping_controller.dart';
 
 class ChooseTimeSheet extends StatelessWidget {
   const ChooseTimeSheet({super.key});

@@ -1,5 +1,6 @@
 import 'package:evenjr_clone/core/style/app_colors.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/theme/global_text_style.dart';
 
 class NotificationTile extends StatelessWidget {
   final String title, subtitle, time, icon;
@@ -60,25 +61,23 @@ class NotificationTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: AppTextStyles.bodyMedium.copyWith(
                       fontWeight: FontWeight.w700,
-                      fontSize: 14,
                       color: Colors.black,
                     ),
                   ),
                   const SizedBox(height: 3),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: AppTextStyles.bodySmall.copyWith(
                       color: Colors.grey,
-                      fontSize: 13,
                       height: 1.4,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     time,
-                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                    style: AppTextStyles.caption.copyWith(color: Colors.grey),
                   ),
                 ],
               ),

@@ -79,7 +79,7 @@ class ActionBottomSheet extends StatelessWidget {
                   ],
                 ),
               ),
-              Divider(thickness: 1, color: Colors.black12),
+              Divider(thickness: 2, color: Colors.black12,indent: 20,endIndent: 20,),
 
               // Action items with dividers between them
               _buildActionItem(

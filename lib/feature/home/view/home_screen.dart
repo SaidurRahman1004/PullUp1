@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
 import '../../../core/const/app_strings.dart';
-import '../../../core/style/app_colors.dart';
-import '../controller/home_controller.dart';
+import '../../../core/theme/global_text_style.dart';
+import '../controllers/home_controller.dart';
+import '../widgets/free_status_section.dart';
+import '../widgets/invite_card.dart';
+import '../widgets/notification_banner.dart';
 import '../widgets/ping_item.dart';
+import '../widgets/pull_up_card.dart';
 import '../widgets/stat_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -69,21 +73,21 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   //Notification Banner
-                  _buildNotificationBanner(),
+                  const NotificationBanner(),
                   const SizedBox(height: 12),
 
                   // Invite Card
-                  _buildInviteCard(),
+                  const InviteCard(),
                   const SizedBox(height: 20),
 
                   // Im FreeSection
-                  _buildFreeStatusSection(controller),
+                  FreeStatusSection(controller: controller),
                   const SizedBox(height: 24),
 
                   // Active Pings
-                  const Text(
+                  Text(
                     AppStrings.activePings,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+                    style: AppTextStyles.heading3.copyWith(fontSize: 18),
                   ),
                   const SizedBox(height: 12),
                   PingItem(
@@ -99,13 +103,13 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 24),
 
                   // Upcoming PullUps
-                  const Text(
+                  Text(
                     AppStrings.upcomingPullups,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+                    style: AppTextStyles.heading3.copyWith(fontSize: 18),
                   ),
                   const SizedBox(height: 12),
 
-                  _buildPullUpCard(
+                  PullUpCard(
                     title: "Lunch Meetup",
                     circle: "Foodies",
                     dateTime: "in 33m",
@@ -123,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
 
-                  _buildPullUpCard(
+                  PullUpCard(
                     title: "Gym Session",
                     circle: "XDZ",
                     dateTime: "Jan 21, 6:00 PM",
@@ -148,405 +152,5 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _buildNotificationBanner() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      decoration: BoxDecoration(
-        color: AppColors.notifyBannerBg,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFFFFE58F)),
-      ),
-      child: Row(
-        children: [
-          Image.asset(
-            AppAssets.bottomNotification,
-            width: 22,
-            height: 22,
-            color: AppColors.notifyButton,
-          ),
-          const SizedBox(width: 10),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppStrings.turnOnNotify,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: Color(0xFF874D00),
-                  ),
-                ),
-                Text(
-                  AppStrings.turnOnNotifySub,
-                  style: TextStyle(fontSize: 11, color: Color(0xFF874D00)),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 8),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.notifyButton,
-              foregroundColor: Colors.white,
-              elevation: 0,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            child: const Text(
-              AppStrings.enable,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInviteCard() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.inviteBannerBg,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD1E9FF)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Icon(
-                Icons.person_add_outlined,
-                color: AppColors.primary,
-                size: 20,
-              ),
-              const SizedBox(width: 10),
-              const Expanded(
-                child: Text(
-                  AppStrings.inviteYourPeople,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {},
-                child: const Icon(Icons.close, size: 16, color: Colors.grey),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            AppStrings.inviteYourPeopleSub,
-            style: TextStyle(fontSize: 12, color: Colors.grey),
-          ),
-          const SizedBox(height: 10),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: 0.1,
-              backgroundColor: Colors.white,
-              color: AppColors.primary,
-              minHeight: 5,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: Colors.white,
-                    elevation: 0,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text(
-                    AppStrings.invitePeople,
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: const Text(
-                  AppStrings.skip,
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFreeStatusSection(HomeController controller) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppStrings.imFree,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 16,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      AppStrings.imFreeSubtitle,
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-              Obx(
-                () => Switch(
-                  value: controller.isFree.value,
-                  onChanged: controller.toggleFreeStatus,
-                  activeThumbColor: AppColors.primary,
-                ),
-              ),
-            ],
-          ),
-          // --- Filter Chips (Segmented Control style) ---
-          Obx(() {
-            const filters = [
-              AppStrings.now,
-              AppStrings.later,
-              AppStrings.tonight,
-            ];
-            return Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                color: const Color(0xFFF0F0F5),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: filters.map((label) {
-                  final isSelected = controller.selectedFilter.value == label;
-                  return GestureDetector(
-                    onTap: () => controller.setFilter(label),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 180),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 18,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? AppColors.primary
-                            : Colors.transparent,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: isSelected
-                            ? [
-                                BoxShadow(
-                                  color: AppColors.primary.withAlpha(50),
-                                  blurRadius: 6,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ]
-                            : null,
-                      ),
-                      child: Text(
-                        label,
-                        style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.black54,
-                          fontWeight: isSelected
-                              ? FontWeight.w700
-                              : FontWeight.w500,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            );
-          }),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPullUpCard({
-    required String title,
-    required String circle,
-    required String dateTime,
-    required String location,
-    required String postedBy,
-    required String status,
-    required String icon,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Left Icon
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Image.asset(icon, color: Colors.white),
-              ),
-            ),
-            const SizedBox(width: 12),
-
-            // Center Content
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          title,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 3,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.successGreen.withAlpha(20),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(
-                          status,
-                          style: const TextStyle(
-                            color: AppColors.successGreen,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    circle,
-                    style: const TextStyle(color: Colors.grey, fontSize: 12),
-                  ),
-                  const SizedBox(height: 8),
-
-                  // Date
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.calendar_today_outlined,
-                        size: 13,
-                        color: Colors.grey,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        dateTime,
-                        style: const TextStyle(
-                          color: Colors.black87,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-
-                  // Location
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.location_on_outlined,
-                        size: 13,
-                        color: Colors.grey,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        location,
-                        style: const TextStyle(
-                          color: Colors.black87,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-
-                  // Posted by + avatars
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.person_outline,
-                        size: 13,
-                        color: Colors.grey,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        "Posted by $postedBy",
-                        style: const TextStyle(
-                          color: Colors.black87,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const Spacer(),
-                      _buildStackedAvatars(),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // homeProfiles asset already contains stacked avatars + +4 badge
-  Widget _buildStackedAvatars() {
-    return Image.asset(AppAssets.homeProfiles, height: 28, fit: BoxFit.contain);
   }
 }

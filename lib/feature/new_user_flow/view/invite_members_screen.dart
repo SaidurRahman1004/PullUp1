@@ -5,6 +5,7 @@ import '../../../core/const/app_assets.dart';
 import '../../../core/const/app_strings.dart';
 import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/style/app_colors.dart';
+import '../../../core/theme/global_text_style.dart';
 import 'post_first_pullup_screen.dart';
 
 class InviteMembersScreen extends StatelessWidget {
@@ -18,9 +19,9 @@ class InviteMembersScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: const BackButton(color: Colors.black),
-        title: const Text(
+        title: Text(
           AppStrings.inviteMembers,
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+          style: AppTextStyles.heading3.copyWith(color: Colors.black),
         ),
       ),
       body: SafeArea(
@@ -45,14 +46,14 @@ class InviteMembersScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 "Gym Crew",
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800),
+                style: AppTextStyles.heading1.copyWith(fontSize: 28),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 AppStrings.shareCodeDesc,
-                style: TextStyle(color: AppColors.textSecondary, fontSize: 15),
+                style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
               ),
               const SizedBox(height: 32),
               Row(
@@ -74,9 +75,9 @@ class InviteMembersScreen extends StatelessWidget {
                         size: 20,
                         color: Colors.black,
                       ),
-                      label: const Text(
+                      label: Text(
                         AppStrings.copyCode,
-                        style: TextStyle(
+                        style: AppTextStyles.bodyMedium.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
                         ),
@@ -100,9 +101,9 @@ class InviteMembersScreen extends StatelessWidget {
                         size: 20,
                         color: AppColors.white,
                       ),
-                      label: const Text(
+                      label: Text(
                         AppStrings.share,
-                        style: TextStyle(
+                        style: AppTextStyles.bodyMedium.copyWith(
                           color: AppColors.white,
                           fontWeight: FontWeight.w600,
                         ),
@@ -115,15 +116,14 @@ class InviteMembersScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     AppStrings.invitedProgress,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                    style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.bold),
                   ),
-                  const Text(
+                  Text(
                     AppStrings.moreToGo,
-                    style: TextStyle(
+                    style: AppTextStyles.bodySmall.copyWith(
                       color: AppColors.textSecondary,
-                      fontSize: 13,
                     ),
                   ),
                 ],
@@ -153,9 +153,9 @@ class InviteMembersScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     AppStrings.inviteLater,
-                    style: TextStyle(
+                    style: AppTextStyles.bodyMedium.copyWith(
                       color: AppColors.primary,
                       fontWeight: FontWeight.w600,
                     ),
@@ -163,9 +163,9 @@ class InviteMembersScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              const Text(
+              Text(
                 AppStrings.inviteAnytimeDesc,
-                style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
+                style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
               ),
               const SizedBox(height: 20),
             ],

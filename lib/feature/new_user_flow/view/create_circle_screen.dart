@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/global_widgets/custom_text_field.dart';
-import '../controller/new_user_controller.dart';
+import '../../../core/theme/global_text_style.dart';
+import '../controllers/new_user_controller.dart';
 import 'circle_created_screen.dart' show CircleCreatedScreen;
 
 class CreateCircleScreen extends StatelessWidget {
@@ -38,12 +39,9 @@ class CreateCircleScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         "Select Category (Optional)",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
+                        style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold),
                       ),
                       AnimatedRotation(
                         turns: controller.categoryExpanded.value ? 0.5 : 0.0,
@@ -104,12 +102,10 @@ class CreateCircleScreen extends StatelessWidget {
                                 children: [
                                   Image.asset(cat['icon']!, width: 32),
                                   const SizedBox(height: 8),
-                                  Text(
-                                    cat['name']!,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                    Text(
+                                      cat['name']!,
+                                      style: AppTextStyles.bodyMedium,
                                     ),
-                                  ),
                                 ],
                               ),
                             ),

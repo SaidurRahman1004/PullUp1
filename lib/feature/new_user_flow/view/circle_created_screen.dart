@@ -4,6 +4,7 @@ import '../../../core/const/app_assets.dart';
 import '../../../core/const/app_strings.dart';
 import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/style/app_colors.dart';
+import '../../../core/theme/global_text_style.dart';
 import 'invite_members_screen.dart';
 import 'notification_permission_screen.dart';
 
@@ -24,23 +25,18 @@ class CircleCreatedScreen extends StatelessWidget {
               const Spacer(flex: 3),
               Image.asset(AppAssets.doneGreen, width: 100, height: 100),
               const SizedBox(height: 32),
-              const Text(
+              Text(
                 AppStrings.circleCreatedTitle,
-                style: TextStyle(
+                style: AppTextStyles.heading1.copyWith(
                   fontSize: 32,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF1D1D1F),
+                  color: const Color(0xFF1D1D1F),
                 ),
               ),
               const SizedBox(height: 12),
-              const Text(
+              Text(
                 AppStrings.circleCreatedSubtitle,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: AppColors.textSecondary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: AppTextStyles.bodyLarge.copyWith(color: AppColors.textSecondary),
               ),
               const Spacer(flex: 1),
               CustomButton(
@@ -48,11 +44,11 @@ class CircleCreatedScreen extends StatelessWidget {
                 onPressed: () => Get.to(() => const InviteMembersScreen()),
               ),
               const SizedBox(height: 12),
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Circles work best with 8–15 people.",
-                  style: TextStyle(color: Color(0xFF8E8E93), fontSize: 13),
+                  style: AppTextStyles.bodySmall.copyWith(color: const Color(0xFF8E8E93)),
                 ),
               ),
               const SizedBox(height: 16),
@@ -71,22 +67,21 @@ class CircleCreatedScreen extends StatelessWidget {
                   onPressed: () {
                     Get.to(() => const NotificationPermissionScreen());
                   },
-                  child: const Text(
+                  child: Text(
                     AppStrings.doThisLater,
-                    style: TextStyle(
+                    style: AppTextStyles.bodyLarge.copyWith(
                       color: AppColors.primary,
-                      fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 12),
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "You can invite more anytime.",
-                  style: TextStyle(color: Color(0xFF8E8E93), fontSize: 13),
+                  style: AppTextStyles.bodySmall.copyWith(color: const Color(0xFF8E8E93)),
                 ),
               ),
               const Spacer(flex: 2),

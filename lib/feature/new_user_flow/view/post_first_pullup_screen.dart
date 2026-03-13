@@ -4,6 +4,7 @@ import '../../../core/const/app_assets.dart';
 import '../../../core/const/app_strings.dart';
 import '../../../core/global_widgets/gradientcon_container.dart';
 import '../../../core/style/app_colors.dart';
+import '../../../core/theme/global_text_style.dart';
 import '../widgets/action_card.dart';
 import 'create_pull_up_screen.dart';
 
@@ -25,20 +26,19 @@ class PostFirstPullupScreen extends StatelessWidget {
                 iconSize: 32,
               ),
               const SizedBox(height: 32),
-              const Text(
+              Text(
                 AppStrings.postFirstTitle,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: AppTextStyles.heading1.copyWith(
                   fontSize: 30,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF1D1D1F),
+                  color: const Color(0xFF1D1D1F),
                 ),
               ),
               const SizedBox(height: 12),
-              const Text(
+              Text(
                 AppStrings.postFirstDesc,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: AppColors.textSecondary, fontSize: 16),
+                style: AppTextStyles.bodyLarge.copyWith(color: AppColors.textSecondary),
               ),
               const SizedBox(height: 50),
               ActionCard(
@@ -61,12 +61,11 @@ class PostFirstPullupScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     AppStrings.doThisLater,
-                    style: TextStyle(
+                    style: AppTextStyles.bodyLarge.copyWith(
                       color: AppColors.primary,
                       fontWeight: FontWeight.w600,
-                      fontSize: 16,
                     ),
                   ),
                 ),

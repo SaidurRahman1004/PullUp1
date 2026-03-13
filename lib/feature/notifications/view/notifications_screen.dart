@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/const/app_assets.dart';
 import '../../../../core/const/app_strings.dart';
+import '../../../../core/theme/global_text_style.dart';
 import '../widgets/notification_tile.dart';
 
 class NotificationsScreen extends StatelessWidget {
@@ -14,9 +15,9 @@ class NotificationsScreen extends StatelessWidget {
         backgroundColor: Color(0xFFF8F9FB),
         surfaceTintColor: Colors.transparent,
         leading: const BackButton(color: Colors.black),
-        title: const Text(
+        title: Text(
           AppStrings.notifications,
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
+          style: AppTextStyles.heading3.copyWith(color: Colors.black),
         ),
       ),
       body: ListView(
@@ -121,9 +122,7 @@ class NotificationsScreen extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 12),
       child: Text(
         title,
-        style: const TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: 16,
+        style: AppTextStyles.heading3.copyWith(
           color: Colors.black87,
         ),
       ),

@@ -8,6 +8,8 @@ class CustomTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final TextEditingController? controller;
   final TextInputType keyboardType;
+  final Color? borderColor;
+  final Color? focusedBorderColor;
 
   const CustomTextField({
     super.key,
@@ -16,6 +18,8 @@ class CustomTextField extends StatelessWidget {
     this.prefixIcon,
     this.controller,
     this.keyboardType = TextInputType.text,
+    this.borderColor,
+    this.focusedBorderColor,
   });
 
   @override
@@ -44,15 +48,15 @@ class CustomTextField extends StatelessWidget {
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+              borderSide: BorderSide(color: borderColor ?? const Color(0xFFE0E0E0)),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+              borderSide: BorderSide(color: borderColor ?? const Color(0xFFE0E0E0)),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+              borderSide: BorderSide(color: focusedBorderColor ?? AppColors.primary, width: 1.5),
             ),
           ),
         ),

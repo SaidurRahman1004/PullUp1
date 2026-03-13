@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/style/app_colors.dart';
-import '../controller/home_controller.dart';
+import '../controllers/home_controller.dart';
 
 class ResponseSelector extends StatelessWidget {
   final HomeController controller;

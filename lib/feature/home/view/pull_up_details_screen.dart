@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
 import '../../../core/style/app_colors.dart';
-import '../controller/home_controller.dart';
+import '../../../core/theme/global_text_style.dart';
+import '../controllers/home_controller.dart';
+import '../widgets/attendee_row.dart';
+import '../widgets/chat_bubble.dart';
+import '../widgets/comment_input.dart';
 import '../widgets/response_selector.dart';
 
 class PullUpDetailsScreen extends StatelessWidget {
@@ -29,12 +33,10 @@ class PullUpDetailsScreen extends StatelessWidget {
           onTap: () => Get.back(),
           child: const Icon(Icons.arrow_back, color: Colors.black),
         ),
-        title: const Text(
+        title: Text(
           "PullUp Details",
-          style: TextStyle(
+          style: AppTextStyles.heading3.copyWith(
             color: Colors.black,
-            fontWeight: FontWeight.w700,
-            fontSize: 17,
           ),
         ),
       ),
@@ -83,7 +85,7 @@ class PullUpDetailsScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     title,
-                                    style: const TextStyle(
+                                    style: AppTextStyles.heading2.copyWith(
                                       fontWeight: FontWeight.w800,
                                       fontSize: 22,
                                       color: Colors.black,
@@ -92,9 +94,8 @@ class PullUpDetailsScreen extends StatelessWidget {
                                   const SizedBox(height: 2),
                                   Text(
                                     circle,
-                                    style: const TextStyle(
+                                    style: AppTextStyles.bodyMedium.copyWith(
                                       color: Colors.grey,
-                                      fontSize: 14,
                                     ),
                                   ),
                                 ],
@@ -304,30 +305,34 @@ class PullUpDetailsScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _sectionLabel("Going"),
-          _attendeeRow(
-            "Alex Chen",
-            Colors.green,
-            'https://i.pravatar.cc/150?img=1',
+          const AttendeeRow(
+            name: "Alex Chen",
+            dotColor: Colors.green,
+            avatarUrl: 'https://i.pravatar.cc/150?img=1',
           ),
-          _attendeeRow(
-            "Sarah Kim",
-            Colors.green,
-            'https://i.pravatar.cc/150?img=5',
+          const AttendeeRow(
+            name: "Sarah Kim",
+            dotColor: Colors.green,
+            avatarUrl: 'https://i.pravatar.cc/150?img=5',
           ),
           const SizedBox(height: 14),
           _sectionLabel("Maybe"),
-          _attendeeRow("You", Colors.orange, 'https://i.pravatar.cc/150?img=8'),
+          const AttendeeRow(
+            name: "You",
+            dotColor: Colors.orange,
+            avatarUrl: 'https://i.pravatar.cc/150?img=8',
+          ),
           const SizedBox(height: 14),
           _sectionLabel("Pass"),
-          _attendeeRow(
-            "Marvin McKinney",
-            Colors.red,
-            'https://i.pravatar.cc/150?img=12',
+          const AttendeeRow(
+            name: "Marvin McKinney",
+            dotColor: Colors.red,
+            avatarUrl: 'https://i.pravatar.cc/150?img=12',
           ),
-          _attendeeRow(
-            "Annette Black",
-            Colors.red,
-            'https://i.pravatar.cc/150?img=16',
+          const AttendeeRow(
+            name: "Annette Black",
+            dotColor: Colors.red,
+            avatarUrl: 'https://i.pravatar.cc/150?img=16',
           ),
         ],
       ),
@@ -339,45 +344,10 @@ class PullUpDetailsScreen extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Text(
         label,
-        style: const TextStyle(
-          fontSize: 13,
+        style: AppTextStyles.bodySmall.copyWith(
           fontWeight: FontWeight.w500,
           color: Colors.black54,
         ),
-      ),
-    );
-  }
-
-  Widget _attendeeRow(String name, Color dotColor, String avatarUrl) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 14),
-      child: Row(
-        children: [
-          ClipOval(
-            child: Image.network(
-              avatarUrl,
-              width: 36,
-              height: 36,
-              fit: BoxFit.cover,
-              errorBuilder: (_, _, _) => const CircleAvatar(
-                radius: 18,
-                backgroundColor: Color(0xFFE5E5EA),
-                child: Icon(Icons.person, size: 20, color: Colors.grey),
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Text(
-            name,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-          ),
-          const SizedBox(width: 6),
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(shape: BoxShape.circle, color: dotColor),
-          ),
-        ],
       ),
     );
   }
@@ -389,17 +359,17 @@ class PullUpDetailsScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Ask Host a Question",
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+            style: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 4),
-          const Text(
+          Text(
             "Ask the host one quick question.",
-            style: TextStyle(color: Colors.grey, fontSize: 13),
+            style: AppTextStyles.bodySmall.copyWith(color: Colors.grey),
           ),
           const SizedBox(height: 16),
-          _chatBubble(
+          const ChatBubble(
             name: "Alex Chen",
             isHost: false,
             message: "Do you need me to bring anything?",
@@ -407,7 +377,7 @@ class PullUpDetailsScreen extends StatelessWidget {
             avatarUrl: 'https://i.pravatar.cc/150?img=1',
           ),
           const SizedBox(height: 10),
-          _chatBubble(
+          const ChatBubble(
             name: "Ryani",
             isHost: true,
             message: "Yes, please bring extra ice.",
@@ -418,155 +388,9 @@ class PullUpDetailsScreen extends StatelessWidget {
           const Divider(height: 1, color: Color(0xFFE5E5EA)),
           const SizedBox(height: 12),
           // Input field inside the card
-          _buildCommentInput(),
+          const CommentInput(),
         ],
       ),
-    );
-  }
-
-  Widget _chatBubble({
-    required String name,
-    required bool isHost,
-    required String message,
-    required String time,
-    required String avatarUrl,
-  }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ClipOval(
-          child: Image.network(
-            avatarUrl,
-            width: 34,
-            height: 34,
-            fit: BoxFit.cover,
-            errorBuilder: (_, _, _) => const CircleAvatar(
-              radius: 17,
-              backgroundColor: Color(0xFFE5E5EA),
-              child: Icon(Icons.person, size: 18, color: Colors.grey),
-            ),
-          ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF2F2F7),
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-                bottomRight: Radius.circular(12),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                      ),
-                    ),
-                    if (isHost) ...[
-                      const SizedBox(width: 6),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: const Text(
-                          "HOST",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 9,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  message,
-                  style: const TextStyle(fontSize: 13, color: Colors.black87),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  time,
-                  style: const TextStyle(fontSize: 11, color: Colors.grey),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCommentInput() {
-    return Row(
-      children: [
-        Expanded(
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: "Ask something about this plan...",
-              hintStyle: TextStyle(fontSize: 13, color: Colors.grey.shade400),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 12,
-              ),
-              filled: true,
-              fillColor: Colors.white,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(
-                  color: Color(0xFFD0D0D0),
-                  width: 1,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(
-                  color: AppColors.primary,
-                  width: 1.5,
-                ),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 10),
-        SizedBox(
-          height: 48,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-              elevation: 0,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            onPressed: () {},
-            child: const Text(
-              "Send",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

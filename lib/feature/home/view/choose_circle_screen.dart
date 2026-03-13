@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
 import '../../../core/const/app_strings.dart';
-import '../../../core/style/app_colors.dart';
+import '../../../core/theme/global_text_style.dart';
+import '../widgets/circle_option_tile.dart';
 
 // Full-screen circle picker used in the PullUp post flow
 // Navigates to the next screen with the selected circle name passed as argument
@@ -38,10 +39,8 @@ class ChooseCircleScreen extends StatelessWidget {
         leading: const BackButton(color: Colors.black),
         title: Text(
           AppStrings.chooseCircle,
-          style: const TextStyle(
+          style: AppTextStyles.heading3.copyWith(
             color: Colors.black,
-            fontWeight: FontWeight.w800,
-            fontSize: 18,
           ),
         ),
       ),
@@ -68,7 +67,11 @@ class ChooseCircleScreen extends StatelessWidget {
     required String icon,
     required bool isOwner,
   }) {
-    return InkWell(
+    return CircleOptionTile(
+      name: name,
+      sub: sub,
+      icon: icon,
+      isOwner: isOwner,
       onTap: () {
         if (onCircleSelected != null) {
           onCircleSelected!(name, icon);
@@ -76,85 +79,6 @@ class ChooseCircleScreen extends StatelessWidget {
           Get.back(result: {'name': name, 'icon': icon});
         }
       },
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFFEEEEEE)),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              padding: const EdgeInsets.all(10),
-              decoration: const BoxDecoration(
-                color: AppColors.primary,
-                shape: BoxShape.circle,
-              ),
-              child: Image.asset(
-                icon,
-                color: Colors.white,
-                fit: BoxFit.contain,
-              ),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                  const SizedBox(height: 3),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.people_alt_outlined,
-                        size: 13,
-                        color: Colors.grey,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        sub,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            if (isOwner)
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE6F0FF),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Text(
-                  "Owner",
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
     );
   }
 }

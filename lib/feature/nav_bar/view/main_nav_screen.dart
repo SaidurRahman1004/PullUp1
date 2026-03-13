@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
-import '../../../core/global_widgets/action_bottom_sheet.dart';
-import '../../../core/style/app_colors.dart';
 import '../../account/view/profile_screen.dart';
 import '../../community/view/circles_screen.dart';
 import '../../home/view/home_screen.dart';
 import '../../notifications/view/notifications_screen.dart';
-import '../controller/nav_controller.dart';
+import '../controllers/nav_controller.dart';
+import '../widgets/nav_fab_widget.dart';
+import '../widgets/nav_item_widget.dart';
 
 class MainNavScreen extends StatelessWidget {
   const MainNavScreen({super.key});
@@ -26,30 +26,7 @@ class MainNavScreen extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       body: Obx(() => pages[controller.currentIndex.value]),
-      floatingActionButton: GestureDetector(
-        onTap: () => Get.bottomSheet(
-          const ActionBottomSheet(),
-          isScrollControlled: true,
-        ),
-        child: Container(
-          height: 68,
-          width: 68,
-          decoration: BoxDecoration(
-            color: AppColors.primary,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.primary.withAlpha(100),
-                blurRadius: 18,
-                offset: const Offset(0, 8),
-              ),
-            ],
-          ),
-          child: const Center(
-            child: Icon(Icons.add, color: Colors.white, size: 32),
-          ),
-        ),
-      ),
+      floatingActionButton: const NavFabWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -74,35 +51,35 @@ class MainNavScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildNavItem(
-                  controller,
-                  0,
-                  AppAssets.bottomProfile, // Inactive
-                  AppAssets.bottomProfileActive, // Active
-                  "Home",
+                NavItemWidget(
+                  controller: controller,
+                  index: 0,
+                  inactiveIcon: AppAssets.bottomProfile, // Inactive
+                  activeIcon: AppAssets.bottomProfileActive, // Active
+                  label: "Home",
                 ),
-                _buildNavItem(
-                  controller,
-                  1,
-                  AppAssets.bottomCircles, // Inactive
-                  AppAssets.bottomCirclesActive, // Active
-                  "Circles",
+                NavItemWidget(
+                  controller: controller,
+                  index: 1,
+                  inactiveIcon: AppAssets.bottomCircles, // Inactive
+                  activeIcon: AppAssets.bottomCirclesActive, // Active
+                  label: "Circles",
                 ),
                 const SizedBox(width: 48),
-                _buildNavItem(
-                  controller,
-                  2,
-                  AppAssets.bottomNotification, // Inactive
-                  AppAssets.bottomNotificationActive, // Active
-                  "Notifications",
+                NavItemWidget(
+                  controller: controller,
+                  index: 2,
+                  inactiveIcon: AppAssets.bottomNotification, // Inactive
+                  activeIcon: AppAssets.bottomNotificationActive, // Active
+                  label: "Notifications",
                 ),
-                _buildNavItem(
-                  controller,
-                  3,
-                  AppAssets.profileBottom, // Inactive (using profile asset)
-                  AppAssets.profileBottomActive,
+                NavItemWidget(
+                  controller: controller,
+                  index: 3,
+                  inactiveIcon: AppAssets.profileBottom, // Inactive (using profile asset)
+                  activeIcon: AppAssets.profileBottomActive,
                   // Active (using your specific active asset)
-                  "Profile",
+                  label: "Profile",
                 ),
               ],
             ),
@@ -110,50 +87,5 @@ class MainNavScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _buildNavItem(
-    NavController controller,
-    int index,
-    String inactiveIcon,
-    String activeIcon,
-    String label,
-  ) {
-    return Obx(() {
-      final bool isActive = controller.currentIndex.value == index;
-      return GestureDetector(
-        onTap: () => controller.changeIndex(index),
-        behavior: HitTestBehavior.opaque,
-        child: SizedBox(
-          width: 65,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                isActive ? activeIcon : inactiveIcon,
-                width: 26,
-                height: 26,
-                color: isActive ? AppColors.primary : null,
-                colorBlendMode: isActive ? BlendMode.srcIn : null,
-              ),
-              const SizedBox(height: 4),
-              FittedBox(
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-                    color: isActive
-                        ? AppColors.primary
-                        : const Color(0xFF8E8E93),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    });
   }
 }

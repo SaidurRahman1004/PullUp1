@@ -7,6 +7,7 @@ import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/global_widgets/custom_text_field.dart';
 import 'notification_permission_screen.dart';
 import '../../../core/global_widgets/custom_date_time_picker_sheet.dart';
+import '../../../core/theme/global_text_style.dart';
 
 class CreatePullUpScreen extends StatefulWidget {
   final String circleName;
@@ -55,16 +56,16 @@ class _CreatePullUpScreenState extends State<CreatePullUpScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent, elevation: 0,
         leading: const BackButton(color: Colors.black),
-        title: const Text(AppStrings.createPullUpTitle, style: TextStyle(
-            color: Colors.black, fontWeight: FontWeight.w800, fontSize: 18)),
+        title: Text(AppStrings.createPullUpTitle, style: AppTextStyles.heading3.copyWith(
+            color: Colors.black, fontSize: 18)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Circle",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            Text("Circle",
+                style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -76,7 +77,7 @@ class _CreatePullUpScreenState extends State<CreatePullUpScreen> {
                   Image.asset(circleIcon, width: 24),
                   const SizedBox(width: 12),
                   Text(circleName,
-                      style: const TextStyle(fontWeight: FontWeight.w600)),
+                      style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600)),
                 ],
               ),
             ),
@@ -112,8 +113,8 @@ class _CreatePullUpScreenState extends State<CreatePullUpScreen> {
                 prefixIcon: Icon(
                     Icons.location_on_outlined, size: 20, color: Colors.grey)),
             const SizedBox(height: 20),
-            const Text(AppStrings.detailsLabel,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            Text(AppStrings.detailsLabel,
+                style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             TextField(
               maxLines: 2,

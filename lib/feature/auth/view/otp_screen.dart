@@ -5,29 +5,16 @@ import 'package:pinput/pinput.dart';
 import '../../../core/const/app_strings.dart';
 import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/style/app_colors.dart';
-import '../controller/auth_controller.dart';
+import '../../../core/style/text_styles.dart';
+import '../controllers/auth_controller.dart';
 
-class OTPScreen extends StatefulWidget {
+class OTPScreen extends StatelessWidget {
   const OTPScreen({super.key});
 
   @override
-  State<OTPScreen> createState() => _OTPScreenState();
-}
-
-class _OTPScreenState extends State<OTPScreen> {
-  final TextEditingController pinController = TextEditingController();
-  final AuthController authController = Get.find<AuthController>();
-  bool isComplete = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    authController.startOtpTimer();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final AuthController authController = Get.find<AuthController>();
+
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
       body: SafeArea(
@@ -38,29 +25,28 @@ class _OTPScreenState extends State<OTPScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Spacer(),
-              const Text(
+              Text(
                 AppStrings.enterOTP,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: AppTextStyles.heading1.copyWith(fontSize: 24),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 AppStrings.otpSubtitle,
-                style: TextStyle(color: Colors.grey),
+                style: AppTextStyles.bodyMedium.copyWith(color: Colors.grey),
               ),
               const SizedBox(height: 40),
 
               Pinput(
                 length: 6,
-                controller: pinController,
-                onCompleted: (pin) => setState(() => isComplete = true),
-                onChanged: (pin) {
-                  if (pin.length < 6) setState(() => isComplete = false);
-                },
+                controller: authController.pinController,
+                onCompleted: (pin) => authController.onPinChanged(pin),
+                onChanged: (pin) => authController.onPinChanged(pin),
                 defaultPinTheme: PinTheme(
                   width: 50,
                   height: 56,
                   decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xFFE0E0E0)),
+                    // User requested black border
+                    border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
@@ -69,7 +55,8 @@ class _OTPScreenState extends State<OTPScreen> {
                   height: 56,
                   decoration: BoxDecoration(
                     color: AppColors.white,
-                    border: Border.all(color: AppColors.primary, width: 2),
+                    // User requested black border
+                    border: Border.all(color: Colors.black, width: 2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
@@ -86,12 +73,11 @@ class _OTPScreenState extends State<OTPScreen> {
                   onTap: canResend ? authController.resendOTP : null,
                   child: Text(
                     canResend ? "Resend code" : "Resend code in ${seconds}s",
-                    style: TextStyle(
+                    style: AppTextStyles.bodyRegular.copyWith(
                       color: canResend ? AppColors.primary : Colors.grey,
                       fontWeight: canResend
                           ? FontWeight.w600
                           : FontWeight.normal,
-                      fontSize: 14,
                     ),
                   ),
                 );
@@ -99,21 +85,23 @@ class _OTPScreenState extends State<OTPScreen> {
 
               const SizedBox(height: 24),
 
-              CustomButton(
-                text: AppStrings.verify,
-                onPressed: isComplete
-                    ? () {
-                        Get.snackbar("Success", "OTP Verified Successfully!");
-                        Get.off(() => const SetupProfileScreen());
-                      }
-                    : () {
-                        Get.snackbar(
-                          "Error",
-                          "Please enter 6 digit OTP",
-                          snackPosition: SnackPosition.BOTTOM,
-                          backgroundColor: Colors.red.withAlpha(25),
-                        );
-                      },
+              Obx(
+                () => CustomButton(
+                  text: AppStrings.verify,
+                  onPressed: authController.isPinComplete.value
+                      ? () {
+                          Get.snackbar("Success", "OTP Verified Successfully!");
+                          Get.off(() => const SetupProfileScreen());
+                        }
+                      : () {
+                          Get.snackbar(
+                            "Error",
+                            "Please enter 6 digit OTP",
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: Colors.red.withAlpha(25),
+                          );
+                        },
+                ),
               ),
               const Spacer(),
             ],

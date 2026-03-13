@@ -1,10 +1,13 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
 import '../../../core/const/app_strings.dart';
 import '../../../core/global_widgets/custom_button.dart';
 import '../../../core/global_widgets/custom_text_field.dart';
-import '../controller/auth_controller.dart';
+import '../../../core/style/text_styles.dart';
+import '../controllers/auth_controller.dart';
+import '../widgets/gender_selection_widget.dart';
 
 class SetupProfileScreen extends StatelessWidget {
   const SetupProfileScreen({super.key});
@@ -13,7 +16,6 @@ class SetupProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthController authController = Get.find<AuthController>();
   
-
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FB),
       appBar: AppBar(
@@ -28,37 +30,47 @@ class SetupProfileScreen extends StatelessWidget {
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
-            crossAxisAlignment: .center,
-            mainAxisAlignment: .center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 80),
               // Title
-              const Text(
+              Text(
                 AppStrings.setupProfile,
-                style: TextStyle(
+                style: AppTextStyles.heading1.copyWith(
                   fontSize: 32,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF1D1D1F),
+                  color: const Color(0xFF1D1D1F),
                 ),
               ),
               const SizedBox(height: 10),
               // Subtitle
-              const Text(
+              Text(
                 AppStrings.setupSubtitle,
-                style: TextStyle(color: Colors.grey, fontSize: 16),
+                style: AppTextStyles.bodyLarge.copyWith(color: Colors.grey),
               ),
               const SizedBox(height: 40),
               Center(
                 child: GestureDetector(
-                  onTap: () {
-                    //ImagePicker
-                  },
+                  onTap: authController.pickImage,
                   child: Center(
-                    child: Image.asset(
-                      AppAssets.cameraIcon,
-                      width: 80,
-                      height: 80,
-                    ),
+                    child: Obx(() {
+                      if (authController.profileImagePath.value.isEmpty) {
+                        return Image.asset(
+                          AppAssets.cameraIcon,
+                          width: 80,
+                          height: 80,
+                        );
+                      } else {
+                        return ClipOval(
+                          child: Image.file(
+                            File(authController.profileImagePath.value),
+                            width: 80,
+                            height: 80,
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      }
+                    }),
                   ),
                 ),
               ),
@@ -70,7 +82,8 @@ class SetupProfileScreen extends StatelessWidget {
                 labelText: AppStrings.fullNameLabel,
                 hintText: "Enter your Full name",
                 keyboardType: TextInputType.name,
-                // onChanged: (value) => authController.validateForm(),
+                borderColor: Colors.black,
+                focusedBorderColor: Colors.black,
               ),
               const SizedBox(height: 20),
 
@@ -80,16 +93,35 @@ class SetupProfileScreen extends StatelessWidget {
                 labelText: AppStrings.emailLabel,
                 hintText: "Enter your Email",
                 keyboardType: TextInputType.emailAddress,
+                borderColor: Colors.black,
+                focusedBorderColor: Colors.black,
               ),
+              const SizedBox(height: 20),
+
+              // Gender Selection
+              GenderSelectionWidget(
+                selectedGender: authController.selectedGender,
+                onSelect: authController.selectGender,
+              ),
+
               const SizedBox(height: 40),
 
-              CustomButton(
+              Obx(() => CustomButton(
                 text: AppStrings.continueBtn,
-                onPressed: () {
-                  authController.validateForm();
-                  authController.saveProfile();
-                },
-              ),
+                onPressed: authController.isFormValid.value
+                    ? () {
+                        authController.saveProfile();
+                      }
+                    : () {
+                        Get.snackbar(
+                          "Error",
+                          "Please fill all fields to continue",
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.red.withAlpha(25),
+                          colorText: Colors.red,
+                        );
+                      },
+              )),
             ],
           ),
         ),

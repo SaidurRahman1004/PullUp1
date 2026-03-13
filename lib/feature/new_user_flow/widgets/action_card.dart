@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/style/app_colors.dart';
+import '../../../../core/theme/global_text_style.dart';
 
 class ActionCard extends StatelessWidget {
   final String title;
@@ -59,17 +60,15 @@ class ActionCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
+                    style: AppTextStyles.heading3.copyWith(
                       fontSize: 18,
-                      fontWeight: FontWeight.bold,
                       color: isPrimary ? Colors.white : Colors.black,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: TextStyle(
-                      fontSize: 13,
+                    style: AppTextStyles.bodySmall.copyWith(
                       color: isPrimary
                           ? Colors.white.withAlpha(150)
                           : AppColors.textPrimary,

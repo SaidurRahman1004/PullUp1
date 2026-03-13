@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
 import '../../../core/style/app_colors.dart';
+import '../../../core/theme/global_text_style.dart';
 import '../../new_user_flow/view/invite_members_screen.dart';
-import '../controller/circle_controller.dart';
+import '../controllers/circle_controller.dart';
 import 'circle_members_screen.dart';
 
 class CircleDetailsScreen extends StatelessWidget {
@@ -25,12 +26,10 @@ class CircleDetailsScreen extends StatelessWidget {
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         leading: const BackButton(color: Colors.black),
-        title: const Text(
+        title: Text(
           "Circle Details",
-          style: TextStyle(
+          style: AppTextStyles.heading3.copyWith(
             color: Colors.black,
-            fontWeight: FontWeight.w600,
-            fontSize: 17,
           ),
         ),
       ),
@@ -67,8 +66,7 @@ class CircleDetailsScreen extends StatelessWidget {
                     // Circle Name
                     Text(
                       name,
-                      style: const TextStyle(
-                        fontSize: 22,
+                      style: AppTextStyles.heading2.copyWith(
                         fontWeight: FontWeight.w800,
                         color: Colors.black,
                       ),
@@ -86,9 +84,9 @@ class CircleDetailsScreen extends StatelessWidget {
                           color: Colors.grey,
                         ),
                         const SizedBox(width: 5),
-                        const Text(
+                        Text(
                           "4 members",
-                          style: TextStyle(color: Colors.grey, fontSize: 14),
+                          style: AppTextStyles.bodyMedium.copyWith(color: Colors.grey),
                         ),
                       ],
                     ),
@@ -111,9 +109,9 @@ class CircleDetailsScreen extends StatelessWidget {
                                   size: 17,
                                   color: Colors.black,
                                 ),
-                                label: const Text(
+                                label: Text(
                                   "Invite",
-                                  style: TextStyle(
+                                  style: AppTextStyles.bodyMedium.copyWith(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -141,9 +139,9 @@ class CircleDetailsScreen extends StatelessWidget {
                                   size: 16,
                                   color: Colors.white,
                                 ),
-                                label: const Text(
+                                label: Text(
                                   "Create PullUp",
-                                  style: TextStyle(
+                                  style: AppTextStyles.bodyMedium.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -187,11 +185,10 @@ class CircleDetailsScreen extends StatelessWidget {
                               color: Colors.grey.shade600,
                             ),
                             const SizedBox(width: 10),
-                            const Text(
+                            Text(
                               "4 Members",
-                              style: TextStyle(
+                              style: AppTextStyles.bodyMedium.copyWith(
                                 fontWeight: FontWeight.w600,
-                                fontSize: 14,
                               ),
                             ),
                             const Spacer(),
@@ -287,12 +284,11 @@ class CircleDetailsScreen extends StatelessWidget {
                             color: Colors.red,
                             size: 18,
                           ),
-                          label: const Text(
+                          label: Text(
                             "Leave Circle",
-                            style: TextStyle(
+                            style: AppTextStyles.bodyMedium.copyWith(
                               color: Colors.red,
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
                             ),
                           ),
                           style: OutlinedButton.styleFrom(
@@ -387,17 +383,15 @@ class CircleDetailsScreen extends StatelessWidget {
             children: [
               Text(
                 label,
-                style: TextStyle(
+                style: AppTextStyles.bodySmall.copyWith(
                   fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                   color: isSelected ? Colors.black : Colors.black54,
-                  fontSize: 13,
                 ),
               ),
               const SizedBox(height: 2),
               Text(
                 sub,
-                style: TextStyle(
-                  fontSize: 11,
+                style: AppTextStyles.caption.copyWith(
                   color: isSelected ? Colors.black54 : Colors.grey.shade400,
                 ),
               ),
@@ -462,9 +456,8 @@ class CircleDetailsScreen extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: AppTextStyles.bodyMedium.copyWith(
                     fontWeight: FontWeight.w700,
-                    fontSize: 15,
                   ),
                 ),
                 const SizedBox(height: 5),
@@ -478,7 +471,7 @@ class CircleDetailsScreen extends StatelessWidget {
                     const SizedBox(width: 5),
                     Text(
                       date,
-                      style: const TextStyle(color: Colors.grey, fontSize: 13),
+                      style: AppTextStyles.bodySmall.copyWith(color: Colors.grey),
                     ),
                   ],
                 ),
@@ -497,7 +490,7 @@ class CircleDetailsScreen extends StatelessWidget {
               const SizedBox(width: 4),
               Text(
                 count,
-                style: const TextStyle(color: Colors.grey, fontSize: 13),
+                style: AppTextStyles.bodySmall.copyWith(color: Colors.grey),
               ),
             ],
           ),
@@ -553,14 +546,13 @@ class CircleDetailsScreen extends StatelessWidget {
               children: [
                 Text(
                   subtitle,
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  style: AppTextStyles.caption.copyWith(color: Colors.grey),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: AppTextStyles.bodyMedium.copyWith(
                     fontWeight: FontWeight.w700,
-                    fontSize: 14,
                     color: Colors.black,
                   ),
                 ),
@@ -571,7 +563,7 @@ class CircleDetailsScreen extends StatelessWidget {
                     const SizedBox(width: 4),
                     Text(
                       timeLeft,
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                      style: AppTextStyles.caption.copyWith(color: Colors.grey),
                     ),
                     const Spacer(),
                     SizedBox(
@@ -586,12 +578,10 @@ class CircleDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {},
-                        child: const Text(
+                        child: Text(
                           "I'm in",
-                          style: TextStyle(
+                          style: AppTextStyles.captionBold.copyWith(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
                           ),
                         ),
                       ),

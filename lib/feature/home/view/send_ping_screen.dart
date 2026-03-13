@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import '../../../core/const/app_assets.dart';
 import '../../../core/const/app_strings.dart';
 import '../../../core/style/app_colors.dart';
-import '../controller/ping_controller.dart';
+import '../../../core/theme/global_text_style.dart';
+import '../controllers/ping_controller.dart';
 import '../widgets/choose_time_sheet.dart';
 
 class SendPingScreen extends StatelessWidget {
@@ -27,9 +28,9 @@ class SendPingScreen extends StatelessWidget {
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         leading: const BackButton(color: Colors.black),
-        title: const Text(
+        title: Text(
           AppStrings.sendPing,
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
+          style: AppTextStyles.heading3.copyWith(color: Colors.black),
         ),
       ),
       body: SingleChildScrollView(
@@ -37,9 +38,9 @@ class SendPingScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Circle",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+              style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
 
@@ -71,9 +72,8 @@ class SendPingScreen extends StatelessWidget {
                   const SizedBox(width: 12),
                   Text(
                     circleName,
-                    style: const TextStyle(
+                    style: AppTextStyles.bodyMedium.copyWith(
                       fontWeight: FontWeight.w600,
-                      fontSize: 15,
                     ),
                   ),
                 ],
@@ -82,18 +82,18 @@ class SendPingScreen extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            const Text(
+            Text(
               AppStrings.quickPrompts,
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+              style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 10),
             ...controller.prompts.map((p) => _buildPromptItem(p, controller)),
 
             const SizedBox(height: 20),
 
-            const Text(
+            Text(
               AppStrings.writeYourOwn,
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+              style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 10),
             TextField(
@@ -101,7 +101,7 @@ class SendPingScreen extends StatelessWidget {
               maxLines: 3,
               decoration: InputDecoration(
                 hintText: AppStrings.whatToSayHint,
-                hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
+                hintStyle: AppTextStyles.bodyMedium.copyWith(color: Colors.grey),
                 filled: true,
                 fillColor: Colors.white,
                 contentPadding: const EdgeInsets.all(14),
@@ -118,9 +118,9 @@ class SendPingScreen extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            const Text(
+            Text(
               "Date",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+              style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 10),
             _buildDateSection(controller),
@@ -140,12 +140,11 @@ class SendPingScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {},
-                child: const Text(
+                child: Text(
                   AppStrings.sendPing,
-                  style: TextStyle(
+                  style: AppTextStyles.bodyLarge.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
                   ),
                 ),
               ),
@@ -174,10 +173,9 @@ class SendPingScreen extends StatelessWidget {
           ),
           child: Text(
             text,
-            style: TextStyle(
+            style: AppTextStyles.bodyMedium.copyWith(
               color: isSelected ? Colors.white : Colors.black87,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-              fontSize: 14,
             ),
           ),
         ),
@@ -225,10 +223,9 @@ class SendPingScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 label,
-                style: TextStyle(
+                style: AppTextStyles.bodyMedium.copyWith(
                   color: isSelected ? Colors.white : Colors.black87,
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                  fontSize: 14,
                 ),
               ),
             ),
